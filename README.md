@@ -1,37 +1,16 @@
-# Gnosis Safe - CSV Airdrop; A Safe App for Easy Transfers
+# CSV Airdrop; A Safe App for Easy Transfers
 
 Send arbitrarily many distinct tokens, to arbitrarily many distinct accounts with various different values from a CSV file in a single Safe transaction!
 
 ## Motivation & Usage Guide
 
 Have you encountered the painful task of sending out multiple token transfers to several recipients with various different values?
-Not only do you have to have to initiate multiple transactions, but then each transaction requires a signature threshold followed by the time it takes to have each transaction mined...
+Not only do you have to initiate multiple transactions, but then each transaction requires a signature threshold followed by the time it takes to have each transaction mined...
 Well these days are over!
-Finally a Safe App which allows you to transfer various ERC20 tokens to arbitrarily many recipients for varying amounts in a single Ethereum transaction.
-Its as simple as uploading a CSV "transfer" file and submitting a single transaction.
+Finally, a Safe App which allows you to transfer various ERC20 tokens to arbitrarily many recipients for varying amounts in a single Ethereum transaction.
+It's as simple as uploading a CSV "transfer" file and submitting a single transaction.
 
-In this article, we demonstrate how to use the Gnosis Safe - CSV Airdrop
-
-## ❤️ Donate ❤️
-
-If you find this app useful for your onchain activities or would like to contribute, donations are welcomed at
-
-```
-0xD011a7e124181336ED417B737A495745F150d248
-```
-
-This can also be done directly in the the app on your next airdrop via the "Donate" button!
-
-## Loading the App in Gnosis Safe Interface
-
-The current version is deployed on IPFS at
-https://cloudflare-ipfs.com/ipfs/QmUFKPZSn73LiwznQ3PVWQXpcaWVdYrSM6c5DES2y24EYd
-
-For older deployed versions, you can find the IPFS hash under [Releases](https://github.com/bh2smith/safe-airdrop/releases).
-
-On mainnet or rinkeby, you can navigate to the [Gnosis Safe](https://gnosis-safe.io/app/) Apps tab and load the app from "Add Custom App", then follow the instructions below to perform your first airdrop.
-
-Note that, the mainnet version relies on the [Uniswap Default Token List](https://tokenlists.org/token-list?url=https://gateway.ipfs.io/ipns/tokens.uniswap.org) for token icons and number of decimal places. If you plan to airdrop a token that is not a member of this list, you will have to provide the number of decimal places as the `decimals` column on each unlisted token transfer in your transfer file.
+In this article, we demonstrate how to use the Safe - CSV Airdrop
 
 ## Preparing a Transfer File
 
@@ -68,7 +47,7 @@ which (on xdai) represents a transfer for 1 wxDai and 0.0002 native xDai.
 
 ## Initializing your Transaction
 
-Navigate to the APPS page from within your [Gnosis Safe MultiSig](http://gnosis-safe.io/app). If you don't already have a Safe, you can create one for free!
+Navigate to the APPS page from within your Safe MultiSig.
 
 1. Open up the CSV Airdrop App, which looks like this:
 
@@ -101,8 +80,6 @@ Then:
 - If HTTPS is used (by default enabled)
   - Open your Safe app locally (by default via https://localhost:3000/) and accept the SSL error.
 - Go to Safe Multisig web interface
-  - [Mainnet](https://app.gnosis-safe.io)
-  - [Rinkeby](https://rinkeby.gnosis-safe.io/app)
 - Create your test safe
 - Go to Apps -> Manage Apps -> Add Custom App
 - Paste your localhost URL, default is https://localhost:3000/
