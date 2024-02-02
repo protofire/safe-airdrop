@@ -50,7 +50,9 @@ const dynamicBaseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryE
     };
   }
   const { chainId, safeAddress } = safeInfo;
-  const baseAPI = networkInfo.get(chainId)?.baseAPI;
+  const networkConfig = networkInfo.get(chainId);
+  const baseAPI =
+    process.env.REACT_APP_IS_PRODUCTION === "true" ? networkConfig?.baseAPI : networkConfig?.stagingBaseAPI;
   if (!baseAPI) {
     return {
       error: {
@@ -61,9 +63,7 @@ const dynamicBaseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryE
     };
   }
   return fetchBaseQuery({
-    baseUrl: isCollectible
-      ? `${networkInfo.get(chainId)?.baseAPI?.replace("v1", "v2")}/safes/${safeAddress}`
-      : `${networkInfo.get(chainId)?.baseAPI}/safes/${safeAddress}`,
+    baseUrl: isCollectible ? `${baseAPI?.replace("v1", "v2")}/safes/${safeAddress}` : `${baseAPI}/safes/${safeAddress}`,
   })(args, api, extraoptions);
 };
 

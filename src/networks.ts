@@ -4,6 +4,7 @@ type NetworkInfo = {
   name: string;
   currencySymbol: string;
   baseAPI?: string;
+  stagingBaseAPI?: string;
 };
 
 export const NETWORKS_WITH_DONATIONS_DEPLOYED = [1, 5, 56, 100, 137];
