@@ -140,4 +140,26 @@ export const networkInfo = new Map<number, NetworkInfo>([
       baseAPI: "https://safe-transaction-volta.safe.global/api/v1",
     },
   ],
+  [
+    9001,
+    {
+      chainID: 9001,
+      name: "Evmos",
+      shortName: "evmos",
+      currencySymbol: "EVMOS",
+      baseAPI: "https://transaction.safe.evmos.org/api/v1",
+      stagingBaseAPI: "https://transaction.safe.evmos.dev/api/v1",
+    },
+  ],
+  [
+    9000,
+    {
+      chainID: 9000,
+      name: "Evmos Testnet",
+      shortName: "evmos-testnet",
+      currencySymbol: "tEVMOS",
+      baseAPI: "https://transaction-testnet.safe.evmos.org/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.safe.evmos.dev/api/v1",
+    },
+  ],
 ]);
