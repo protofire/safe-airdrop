@@ -184,4 +184,26 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction-testnet.safe.stg.oasis.io/api/v1",
     },
   ],
+  [
+    534352,
+    {
+      chainID: 534352,
+      name: "Scroll",
+      shortName: "scr",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction.safe.scroll.xyz/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.scroll.xyz/api/v1",
+    },
+  ],
+  [
+    534351,
+    {
+      chainID: 534351,
+      name: "Scroll Sepolia",
+      shortName: "scr-sepolia",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-sepolia.safe.scroll.xyz/api/v1",
+      stagingBaseAPI: "https://transaction-sepolia.staging.safe.scroll.xyz/api/v1",
+    },
+  ],
 ]);
