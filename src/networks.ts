@@ -206,4 +206,26 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction-sepolia.staging.safe.scroll.xyz/api/v1",
     },
   ],
+  [
+    919,
+    {
+      chainID: 919,
+      name: "Mode Testnet",
+      shortName: "mode-sepolia-vtnhnpim72",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-mode-sepolia.staging.safe.optimism.io/api/v1",
+      stagingBaseAPI: "https://transaction-mode-sepolia.staging.safe.optimism.io/api/v1",
+    },
+  ],
+  [
+    34443,
+    {
+      chainID: 34443,
+      name: "Mode",
+      shortName: "mode",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-mode.staging.safe.optimism.io/api/v1",
+      stagingBaseAPI: "https://transaction-mode.staging.safe.optimism.io/api/v1",
+    },
+  ],
 ]);
