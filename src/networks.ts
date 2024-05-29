@@ -360,4 +360,15 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "http://transaction-cyber-testnet.staging.safe.optimism.io/api/v1",
     },
   ],
+  [
+    7225878,
+    {
+      chainID: 7225878,
+      name: "Saakuru Mainnet",
+      shortName: "saakuru",
+      currencySymbol: "OAS",
+      baseAPI: "https://transaction-safe.saakuru.com/api/v1",
+      stagingBaseAPI: "https://transaction-safe-stage.saakuru.com/api/v1",
+    },
+  ],
 ]);
