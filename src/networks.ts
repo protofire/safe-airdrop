@@ -371,4 +371,59 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction-safe-stage.saakuru.com/api/v1",
     },
   ],
+  [
+    592,
+    {
+      chainID: 592,
+      name: "Astar",
+      shortName: "astr",
+      currencySymbol: "ASTR",
+      baseAPI: "https://transaction.safe.astar.network/api/v1",
+      stagingBaseAPI: "https://transaction.staging-safe.astar.network/api/v1",
+    },
+  ],
+  [
+    3776,
+    {
+      chainID: 3776,
+      name: "Astar zkEVM",
+      shortName: "astar-zkevm",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-zkevm.safe.astar.network/api/v1",
+      stagingBaseAPI: "https://transaction-zkevm.staging-safe.astar.network/api/v1",
+    },
+  ],
+  [
+    336,
+    {
+      chainID: 336,
+      name: "Shiden",
+      shortName: "sdn",
+      currencySymbol: "SDN",
+      baseAPI: "https://transaction-shiden.safe.astar.network/api/v1",
+      stagingBaseAPI: "https://transaction-shiden.staging-safe.astar.network/api/v1",
+    },
+  ],
+  [
+    6038361,
+    {
+      chainID: 6038361,
+      name: "zKyoto",
+      shortName: "azkyt",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-zkyoto.safe.astar.network/api/v1",
+      stagingBaseAPI: "https://transaction-zkyoto.staging-safe.astar.network/api/v1",
+    },
+  ],
+  [
+    81,
+    {
+      chainID: 81,
+      name: "Shibuya",
+      shortName: "sby",
+      currencySymbol: "SBY",
+      baseAPI: "https://transaction-shibuya.safe.astar.network/api/v1",
+      stagingBaseAPI: "https://transaction-shibuya.staging-safe.astar.network/api/v1",
+    },
+  ],
 ]);
