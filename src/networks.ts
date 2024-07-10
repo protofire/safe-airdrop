@@ -426,4 +426,26 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction-shibuya.staging-safe.astar.network/api/v1",
     },
   ],
+  [
+    48899,
+    {
+      chainID: 48899,
+      name: "Zircuit Testnet",
+      shortName: "zircuit-testnet",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-testnet.safe.zircuit.com/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.zircuit.com/api/v1",
+    },
+  ],
+  [
+    48900,
+    {
+      chainID: 48900,
+      name: "Zircuit Mainnet",
+      shortName: "zircuit-mainnet",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction.safe.zircuit.com/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.zircuit.com/api/v1",
+    },
+  ],
 ]);
