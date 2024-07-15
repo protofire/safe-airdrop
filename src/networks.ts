@@ -448,4 +448,26 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction.staging.safe.zircuit.com/api/v1",
     },
   ],
+  [
+    5000,
+    {
+      chainID: 5000,
+      name: "Mantle",
+      shortName: "mantle",
+      currencySymbol: "MNT",
+      baseAPI: "https://transaction.multisig.mantle.xyz/api/v1",
+      stagingBaseAPI: "https://transaction.staging.multisig.mantle.xyz/api/v1",
+    },
+  ],
+  [
+    5003,
+    {
+      chainID: 5003,
+      name: "Mantle Sepolia",
+      shortName: "mnt-sep",
+      currencySymbol: "MNT",
+      baseAPI: "https://transaction-sepolia.multisig.mantle.xyz/api/v1",
+      stagingBaseAPI: "https://transaction-sepolia.staging.multisig.mantle.xyz/api/v1",
+    },
+  ],
 ]);
