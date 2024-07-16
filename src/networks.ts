@@ -470,4 +470,26 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction-sepolia.staging.multisig.mantle.xyz/api/v1",
     },
   ],
+  [
+    2358,
+    {
+      chainID: 2358,
+      name: "Kroma Sepolia",
+      shortName: "kroma-sepolia",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-sepolia.safe.kroma.network/api/v1",
+      stagingBaseAPI: "https://transaction-sepolia.staging.safe.kroma.network/api/v1",
+    },
+  ],
+  [
+    255,
+    {
+      chainID: 255,
+      name: "Kroma",
+      shortName: "kroma",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction.safe.kroma.network/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.kroma.network/api/v1",
+    },
+  ],
 ]);
