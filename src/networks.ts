@@ -477,8 +477,8 @@ export const networkInfo = new Map<number, NetworkInfo>([
       name: "Kroma Sepolia",
       shortName: "kroma-sepolia",
       currencySymbol: "ETH",
-      baseAPI: "https://transaction-sepolia.safe.kroma.network",
-      stagingBaseAPI: "https://transaction-sepolia.staging.safe.kroma.network",
+      baseAPI: "https://transaction-sepolia.safe.kroma.network/api/v1",
+      stagingBaseAPI: "https://transaction-sepolia.staging.safe.kroma.network/api/v1",
     },
   ],
   [
@@ -488,8 +488,8 @@ export const networkInfo = new Map<number, NetworkInfo>([
       name: "Kroma",
       shortName: "kroma",
       currencySymbol: "ETH",
-      baseAPI: "https://transaction.safe.kroma.network",
-      stagingBaseAPI: "https://transaction.staging.safe.kroma.network",
+      baseAPI: "https://transaction.safe.kroma.network/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.kroma.network/api/v1",
     },
   ],
 ]);
