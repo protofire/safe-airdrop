@@ -492,4 +492,26 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction.staging.safe.kroma.network/api/v1",
     },
   ],
+  [
+    1666600000,
+    {
+      chainID: 1666600000,
+      name: "Harmony",
+      shortName: "hmy-s0",
+      currencySymbol: "ONE",
+      baseAPI: "https://transaction.multisig.harmony.one/api/v1",
+      stagingBaseAPI: "https://transaction.staging-safe.harmony.one/api/v1",
+    },
+  ],
+  [
+    1666700000,
+    {
+      chainID: 1666700000,
+      name: "Harmony Testnet",
+      shortName: "hmy-b-s0",
+      currencySymbol: "ONE",
+      baseAPI: "https://transaction-testnet.multisig.harmony.one/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging-safe.harmony.one/api/v1",
+    },
+  ],
 ]);
