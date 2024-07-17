@@ -580,4 +580,26 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction.moonbase.staging.multisig.moonbeam.network/api/v1",
     },
   ],
+  [
+    1111,
+    {
+      chainID: 1111,
+      name: "WEMIX3.0 Mainnet",
+      shortName: "wemix",
+      currencySymbol: "WEMIX",
+      baseAPI: "https://transaction.safe.wemix.com/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.wemix.com/api/v1",
+    },
+  ],
+  [
+    1112,
+    {
+      chainID: 1112,
+      name: "WEMIX3.0 Testnet",
+      shortName: "twemix",
+      currencySymbol: "tWEMIX",
+      baseAPI: "https://transaction-testnet.safe.wemix.com/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.wemix.com/api/v1",
+    },
+  ],
 ]);
