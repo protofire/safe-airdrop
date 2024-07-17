@@ -514,4 +514,37 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction-testnet.staging-safe.harmony.one/api/v1",
     },
   ],
+  [
+    59144,
+    {
+      chainID: 59144,
+      name: "Linea",
+      shortName: "linea",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction.safe.linea.build/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.linea.build/api/v1",
+    },
+  ],
+  [
+    59140,
+    {
+      chainID: 59140,
+      name: "Linea Goerli",
+      shortName: "linea-testnet",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-testnet.safe.linea.build/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.linea.build/api/v1",
+    },
+  ],
+  [
+    59141,
+    {
+      chainID: 59141,
+      name: "Linea Sepolia",
+      shortName: "linea-sepolia",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-sepolia.staging.safe.linea.build/api/v1",
+      stagingBaseAPI: "https://transaction-sepolia.staging.safe.linea.build/api/v1",
+    },
+  ],
 ]);
