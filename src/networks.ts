@@ -547,4 +547,37 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction-sepolia.staging.safe.linea.build/api/v1",
     },
   ],
+  [
+    1284,
+    {
+      chainID: 1284,
+      name: "Moonbeam",
+      shortName: "mbeam",
+      currencySymbol: "GLMR",
+      baseAPI: "https://transaction.multisig.moonbeam.network/api/v1",
+      stagingBaseAPI: "https://transaction.staging.multisig.moonbeam.network/api/v1",
+    },
+  ],
+  [
+    1285,
+    {
+      chainID: 1285,
+      name: "Moonriver",
+      shortName: "mriver",
+      currencySymbol: "MOVR",
+      baseAPI: "https://transaction.moonriver.multisig.moonbeam.network/api/v1",
+      stagingBaseAPI: "https://transaction.moonriver.staging.multisig.moonbeam.network/api/v1",
+    },
+  ],
+  [
+    1287,
+    {
+      chainID: 1287,
+      name: "Moonbase",
+      shortName: "mbase",
+      currencySymbol: "DEV",
+      baseAPI: "https://transaction.moonbase.multisig.moonbeam.network/api/v1",
+      stagingBaseAPI: "https://transaction.moonbase.staging.multisig.moonbeam.network/api/v1",
+    },
+  ],
 ]);
