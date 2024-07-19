@@ -602,4 +602,26 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction-testnet.staging.safe.wemix.com/api/v1",
     },
   ],
+  [
+    30,
+    {
+      chainID: 30,
+      name: "RSK Mainnet",
+      shortName: "rsk",
+      currencySymbol: "RBTC",
+      baseAPI: "https://transaction.safe.rootstock.io/api/v1",
+      stagingBaseAPI: "https://transaction.safe.rootstock.io/api/v1",
+    },
+  ],
+  [
+    31,
+    {
+      chainID: 31,
+      name: "RSK Testnet",
+      shortName: "trsk",
+      currencySymbol: "tRBTC",
+      baseAPI: "https://transaction-testnet.safe.rootstock.io/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.rootstock.io/api/v1",
+    },
+  ],
 ]);
