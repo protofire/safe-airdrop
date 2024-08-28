@@ -361,6 +361,17 @@ export const networkInfo = new Map<number, NetworkInfo>([
     },
   ],
   [
+    2192,
+    {
+      chainID: 2192,
+      name: "Snaxchain",
+      shortName: "snaxchain",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-snaxchain.safe.optimism.io/api/v1",
+      stagingBaseAPI: "https://transaction-snaxchain.staging.safe.optimism.io/api/v1",
+    },
+  ],
+  [
     7225878,
     {
       chainID: 7225878,
