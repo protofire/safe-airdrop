@@ -635,4 +635,14 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction-testnet.staging.safe.rootstock.io/api/v1",
     },
   ],
+  [
+    17000,
+    {
+      chainID: 17000,
+      name: "Ethereum Holesky Testnet",
+      shortName: "holesky",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-holesky.holesky-safe.protofire.io/api/v1",
+    },
+  ],
 ]);
