@@ -163,6 +163,28 @@ export const networkInfo = new Map<number, NetworkInfo>([
     },
   ],
   [
+    2222,
+    {
+      chainID: 2222,
+      name: "Kava",
+      shortName: "kava",
+      currencySymbol: "KAVA",
+      baseAPI: "https://transaction.safe.kava.io/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.kava.io/api/v1",
+    },
+  ],
+  [
+    2221,
+    {
+      chainID: 2221,
+      name: "Kava Testnet",
+      shortName: "kava testnet",
+      currencySymbol: "TKAVA",
+      baseAPI: "https://transaction-testnet.safe.kava.io/api/v1",
+      stagingBaseAPI: " https://transaction-testnet.staging.safe.kava.io/api/v1",
+    },
+  ],
+  [
     23294,
     {
       chainID: 23294,
