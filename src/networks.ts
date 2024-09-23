@@ -181,7 +181,29 @@ export const networkInfo = new Map<number, NetworkInfo>([
       shortName: "kava testnet",
       currencySymbol: "TKAVA",
       baseAPI: "https://transaction-testnet.safe.kava.io/api/v1",
-      stagingBaseAPI: " https://transaction-testnet.staging.safe.kava.io/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.kava.io/api/v1",
+    },
+  ],
+  [
+    60808,
+    {
+      chainID: 60808,
+      name: "BOB Mainnet",
+      shortName: "bob mainnet",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction.safe.gobob.xyz/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.gobob.xyz/api/v1",
+    },
+  ],
+  [
+    111,
+    {
+      chainID: 111,
+      name: "BOB Testnet",
+      shortName: "bob testnet",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-testnet.safe.gobob.xyz/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.gobob.xyz/api/v1",
     },
   ],
   [
