@@ -207,6 +207,17 @@ export const networkInfo = new Map<number, NetworkInfo>([
     },
   ],
   [
+    808813,
+    {
+      chainID: 808813,
+      name: "BOB Sepolia",
+      shortName: "bob sepolia",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-sepolia.safe.gobob.xyz/api/v1",
+      stagingBaseAPI: "https://transaction-sepolia.staging.safe.gobob.xyz/api/v1",
+    },
+  ],
+  [
     23294,
     {
       chainID: 23294,
