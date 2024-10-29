@@ -543,8 +543,8 @@ export const networkInfo = new Map<number, NetworkInfo>([
       name: "Kroma Sepolia",
       shortName: "kroma-sepolia",
       currencySymbol: "ETH",
-      baseAPI: "https://transaction-sepolia.safe.kroma.network/api/v1",
-      stagingBaseAPI: "https://transaction-sepolia.staging.safe.kroma.network/api/v1",
+      baseAPI: "https://transaction-kroma-sepolia.safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-kroma-sepolia.stage.safe.protofire.io/api/v1",
     },
   ],
   [
@@ -554,8 +554,8 @@ export const networkInfo = new Map<number, NetworkInfo>([
       name: "Kroma",
       shortName: "kroma",
       currencySymbol: "ETH",
-      baseAPI: "https://transaction.safe.kroma.network/api/v1",
-      stagingBaseAPI: "https://transaction.staging.safe.kroma.network/api/v1",
+      baseAPI: "https://transaction-kroma.safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-kroma.stage.safe.protofire.io/api/v1",
     },
   ],
   [
@@ -653,8 +653,8 @@ export const networkInfo = new Map<number, NetworkInfo>([
       name: "WEMIX3.0 Mainnet",
       shortName: "wemix",
       currencySymbol: "WEMIX",
-      baseAPI: "https://transaction.safe.wemix.com/api/v1",
-      stagingBaseAPI: "https://transaction.staging.safe.wemix.com/api/v1",
+      baseAPI: "https://transaction-wemix.safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-wemix.safe.protofire.io/api/v1",
     },
   ],
   [
@@ -664,8 +664,8 @@ export const networkInfo = new Map<number, NetworkInfo>([
       name: "WEMIX3.0 Testnet",
       shortName: "twemix",
       currencySymbol: "tWEMIX",
-      baseAPI: "https://transaction-testnet.safe.wemix.com/api/v1",
-      stagingBaseAPI: "https://transaction-testnet.staging.safe.wemix.com/api/v1",
+      baseAPI: "https://transaction-wemix-testnet.safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-wemix-testnet.safe.protofire.io/api/v1",
     },
   ],
   [
