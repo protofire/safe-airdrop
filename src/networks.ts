@@ -328,6 +328,28 @@ export const networkInfo = new Map<number, NetworkInfo>([
     },
   ],
   [
+    167000,
+    {
+      chainID: 167000,
+      name: "Taiko Mainnet L2",
+      shortName: "tko-mainnet",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction.safe.taiko.xyz/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.taiko.xyz/api/v1",
+    },
+  ],
+  [
+    167009,
+    {
+      chainID: 167009,
+      name: "Taiko Hekla L2",
+      shortName: "tko-hekla",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-hekla.safe.taiko.xyz/api/v1",
+      stagingBaseAPI: "https://transaction-hekla.staging.safe.taiko.xyz/api/v1",
+    },
+  ],
+  [
     4202,
     {
       chainID: 4202,
