@@ -211,7 +211,7 @@ export const networkInfo = new Map<number, NetworkInfo>([
     {
       chainID: 808813,
       name: "BOB Sepolia",
-      shortName: "bob sepolia",
+      shortName: "bob-sepolia",
       currencySymbol: "ETH",
       baseAPI: "https://transaction-sepolia.safe.gobob.xyz/api/v1",
       stagingBaseAPI: "https://transaction-sepolia.staging.safe.gobob.xyz/api/v1",
