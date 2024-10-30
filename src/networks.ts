@@ -211,7 +211,7 @@ export const networkInfo = new Map<number, NetworkInfo>([
     {
       chainID: 808813,
       name: "BOB Sepolia",
-      shortName: "bob sepolia",
+      shortName: "bob-sepolia",
       currencySymbol: "ETH",
       baseAPI: "https://transaction-sepolia.safe.gobob.xyz/api/v1",
       stagingBaseAPI: "https://transaction-sepolia.staging.safe.gobob.xyz/api/v1",
@@ -325,6 +325,28 @@ export const networkInfo = new Map<number, NetworkInfo>([
       currencySymbol: "ETH",
       baseAPI: "https://transaction-zora-sepolia.safe.optimism.io/api/v1",
       stagingBaseAPI: "https://transaction-zora-sepolia.staging.safe.optimism.io/api/v1",
+    },
+  ],
+  [
+    167000,
+    {
+      chainID: 167000,
+      name: "Taiko Mainnet L2",
+      shortName: "tko-mainnet",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction.safe.taiko.xyz/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.taiko.xyz/api/v1",
+    },
+  ],
+  [
+    167009,
+    {
+      chainID: 167009,
+      name: "Taiko Hekla L2",
+      shortName: "tko-hekla",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-hekla.safe.taiko.xyz/api/v1",
+      stagingBaseAPI: "https://transaction-hekla.staging.safe.taiko.xyz/api/v1",
     },
   ],
   [
