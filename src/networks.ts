@@ -240,6 +240,50 @@ export const networkInfo = new Map<number, NetworkInfo>([
     },
   ],
   [
+    288,
+    {
+      chainID: 288,
+      name: "Boba Mainnet",
+      shortName: "boba",
+      currencySymbol: "TEST",
+      baseAPI: " https://transaction.safe.boba.network/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.boba.network/api/v1",
+    },
+  ],
+  [
+    56288,
+    {
+      chainID: 56288,
+      name: "Boba BNB",
+      shortName: "BobaBnb",
+      currencySymbol: "TEST",
+      baseAPI: "https://transaction-bnb.safe.boba.network/api/v1",
+      stagingBaseAPI: "https://transaction-bnb.staging.safe.boba.network/api/v1",
+    },
+  ],
+  [
+    28882,
+    {
+      chainID: 28882,
+      name: "Boba Sepolia",
+      shortName: "BobaSepolia",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-testnet.safe.boba.network/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.boba.network/api/v1",
+    },
+  ],
+  [
+    9728,
+    {
+      chainID: 9728,
+      name: "Boba BNB Testnet",
+      shortName: "BobaBnbTestnet",
+      currencySymbol: "BOBA",
+      baseAPI: "https://transaction-bnb-testnet.safe.boba.network/api/v1",
+      stagingBaseAPI: "https://transaction-bnb-testnet.staging.safe.boba.network/api/v1",
+    },
+  ],
+  [
     534352,
     {
       chainID: 534352,
