@@ -163,6 +163,61 @@ export const networkInfo = new Map<number, NetworkInfo>([
     },
   ],
   [
+    2222,
+    {
+      chainID: 2222,
+      name: "Kava",
+      shortName: "kava",
+      currencySymbol: "KAVA",
+      baseAPI: "https://transaction.safe.kava.io/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.kava.io/api/v1",
+    },
+  ],
+  [
+    2221,
+    {
+      chainID: 2221,
+      name: "Kava Testnet",
+      shortName: "kava testnet",
+      currencySymbol: "TKAVA",
+      baseAPI: "https://transaction-testnet.safe.kava.io/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.kava.io/api/v1",
+    },
+  ],
+  [
+    60808,
+    {
+      chainID: 60808,
+      name: "BOB Mainnet",
+      shortName: "bob mainnet",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction.safe.gobob.xyz/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.gobob.xyz/api/v1",
+    },
+  ],
+  [
+    111,
+    {
+      chainID: 111,
+      name: "BOB Testnet",
+      shortName: "bob testnet",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-testnet.safe.gobob.xyz/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.gobob.xyz/api/v1",
+    },
+  ],
+  [
+    808813,
+    {
+      chainID: 808813,
+      name: "BOB Sepolia",
+      shortName: "bob-sepolia",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-sepolia.safe.gobob.xyz/api/v1",
+      stagingBaseAPI: "https://transaction-sepolia.staging.safe.gobob.xyz/api/v1",
+    },
+  ],
+  [
     23294,
     {
       chainID: 23294,
@@ -182,6 +237,50 @@ export const networkInfo = new Map<number, NetworkInfo>([
       currencySymbol: "TEST",
       baseAPI: "https://transaction-testnet.safe.oasis.io/api/v1",
       stagingBaseAPI: "https://transaction-testnet.safe.stg.oasis.io/api/v1",
+    },
+  ],
+  [
+    288,
+    {
+      chainID: 288,
+      name: "Boba Mainnet",
+      shortName: "boba",
+      currencySymbol: "TEST",
+      baseAPI: " https://transaction.safe.boba.network/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.boba.network/api/v1",
+    },
+  ],
+  [
+    56288,
+    {
+      chainID: 56288,
+      name: "Boba BNB",
+      shortName: "BobaBnb",
+      currencySymbol: "TEST",
+      baseAPI: "https://transaction-bnb.safe.boba.network/api/v1",
+      stagingBaseAPI: "https://transaction-bnb.staging.safe.boba.network/api/v1",
+    },
+  ],
+  [
+    28882,
+    {
+      chainID: 28882,
+      name: "Boba Sepolia",
+      shortName: "BobaSepolia",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-testnet.safe.boba.network/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.boba.network/api/v1",
+    },
+  ],
+  [
+    9728,
+    {
+      chainID: 9728,
+      name: "Boba BNB Testnet",
+      shortName: "BobaBnbTestnet",
+      currencySymbol: "BOBA",
+      baseAPI: "https://transaction-bnb-testnet.safe.boba.network/api/v1",
+      stagingBaseAPI: "https://transaction-bnb-testnet.staging.safe.boba.network/api/v1",
     },
   ],
   [
@@ -273,6 +372,28 @@ export const networkInfo = new Map<number, NetworkInfo>([
     },
   ],
   [
+    167000,
+    {
+      chainID: 167000,
+      name: "Taiko Mainnet L2",
+      shortName: "tko-mainnet",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction.safe.taiko.xyz/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.taiko.xyz/api/v1",
+    },
+  ],
+  [
+    167009,
+    {
+      chainID: 167009,
+      name: "Taiko Hekla L2",
+      shortName: "tko-hekla",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-hekla.safe.taiko.xyz/api/v1",
+      stagingBaseAPI: "https://transaction-hekla.staging.safe.taiko.xyz/api/v1",
+    },
+  ],
+  [
     4202,
     {
       chainID: 4202,
@@ -358,6 +479,17 @@ export const networkInfo = new Map<number, NetworkInfo>([
       currencySymbol: "ETH",
       baseAPI: "https://transaction-cyber-testnet.safe.optimism.io/api/v1",
       stagingBaseAPI: "https://transaction-cyber-testnet.staging.safe.optimism.io/api/v1",
+    },
+  ],
+  [
+    2192,
+    {
+      chainID: 2192,
+      name: "Snaxchain",
+      shortName: "snaxchain",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-snaxchain.safe.optimism.io/api/v1",
+      stagingBaseAPI: "https://transaction-snaxchain.staging.safe.optimism.io/api/v1",
     },
   ],
   [
@@ -477,8 +609,8 @@ export const networkInfo = new Map<number, NetworkInfo>([
       name: "Kroma Sepolia",
       shortName: "kroma-sepolia",
       currencySymbol: "ETH",
-      baseAPI: "https://transaction-sepolia.safe.kroma.network/api/v1",
-      stagingBaseAPI: "https://transaction-sepolia.staging.safe.kroma.network/api/v1",
+      baseAPI: "https://transaction-kroma-sepolia.safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-kroma-sepolia.stage.safe.protofire.io/api/v1",
     },
   ],
   [
@@ -488,8 +620,8 @@ export const networkInfo = new Map<number, NetworkInfo>([
       name: "Kroma",
       shortName: "kroma",
       currencySymbol: "ETH",
-      baseAPI: "https://transaction.safe.kroma.network/api/v1",
-      stagingBaseAPI: "https://transaction.staging.safe.kroma.network/api/v1",
+      baseAPI: "https://transaction-kroma.safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-kroma.stage.safe.protofire.io/api/v1",
     },
   ],
   [
@@ -587,8 +719,8 @@ export const networkInfo = new Map<number, NetworkInfo>([
       name: "WEMIX3.0 Mainnet",
       shortName: "wemix",
       currencySymbol: "WEMIX",
-      baseAPI: "https://transaction.safe.wemix.com/api/v1",
-      stagingBaseAPI: "https://transaction.staging.safe.wemix.com/api/v1",
+      baseAPI: "https://transaction-wemix.safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-wemix.safe.protofire.io/api/v1",
     },
   ],
   [
@@ -598,8 +730,40 @@ export const networkInfo = new Map<number, NetworkInfo>([
       name: "WEMIX3.0 Testnet",
       shortName: "twemix",
       currencySymbol: "tWEMIX",
-      baseAPI: "https://transaction-testnet.safe.wemix.com/api/v1",
-      stagingBaseAPI: "https://transaction-testnet.staging.safe.wemix.com/api/v1",
+      baseAPI: "https://transaction-wemix-testnet.safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-wemix-testnet.safe.protofire.io/api/v1",
+    },
+  ],
+  [
+    30,
+    {
+      chainID: 30,
+      name: "RSK Mainnet",
+      shortName: "rsk",
+      currencySymbol: "RBTC",
+      baseAPI: "https://transaction.safe.rootstock.io/api/v1",
+      stagingBaseAPI: "https://transaction.safe.rootstock.io/api/v1",
+    },
+  ],
+  [
+    31,
+    {
+      chainID: 31,
+      name: "RSK Testnet",
+      shortName: "trsk",
+      currencySymbol: "tRBTC",
+      baseAPI: "https://transaction-testnet.safe.rootstock.io/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.rootstock.io/api/v1",
+    },
+  ],
+  [
+    17000,
+    {
+      chainID: 17000,
+      name: "Ethereum Holesky Testnet",
+      shortName: "holesky",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-holesky.holesky-safe.protofire.io/api/v1",
     },
   ],
   [
