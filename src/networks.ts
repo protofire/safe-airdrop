@@ -602,4 +602,26 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction-testnet.staging.safe.wemix.com/api/v1",
     },
   ],
+  [
+    2741,
+    {
+      chainID: 2741,
+      name: "Abstract Mainnet",
+      shortName: "abstract",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction.abstract-safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction.staging.abstract-safe.protofire.io/api/v1",
+    },
+  ],
+  [
+    11124,
+    {
+      chainID: 11124,
+      name: "Abstract Sepolia",
+      shortName: "abstract-sepolia",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-testnet.abstract-safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.abstract-safe.protofire.io/api/v1",
+    },
+  ],
 ]);
