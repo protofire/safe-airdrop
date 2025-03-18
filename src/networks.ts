@@ -788,4 +788,15 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction-testnet.staging.abstract-safe.protofire.io/api/v1",
     },
   ],
+  [
+    80094,
+    {
+      chainID: 80094,
+      name: "Berachain",
+      shortName: "berachain",
+      currencySymbol: "BERA",
+      baseAPI: "https://transaction.safe.berachain.com/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.berachain.com/api/v1",
+    },
+  ],
 ]);
