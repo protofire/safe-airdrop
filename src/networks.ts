@@ -799,4 +799,26 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction.staging.safe.berachain.com/api/v1",
     },
   ],
+  [
+    2187,
+    {
+      chainID: 2187,
+      name: "Game7",
+      shortName: "g7",
+      currencySymbol: "G7",
+      baseAPI: "https://transaction.safe.game7.io/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.game7.io/api/v1",
+    },
+  ],
+  [
+    1625,
+    {
+      chainID: 1625,
+      name: "Gravity Alpha Mainnet",
+      shortName: "gravity",
+      currencySymbol: "G",
+      baseAPI: "https://transaction.safe.gravity.xyz/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.gravity.xyz/api/v1",
+    },
+  ]
 ]);
