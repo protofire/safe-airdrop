@@ -832,4 +832,15 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction-testnet.staging.safe.game7.io/api/v1",
     },
   ],
+  [
+    13505,
+    {
+      chainID: 13505,
+      name: "Gravity Alpha Testnet Sepolia",
+      shortName: "gravitysep",
+      currencySymbol: "G",
+      baseAPI: "https://transaction-testnet.safe.gravity.xyz/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.gravity.xyz/api/v1",
+    }
+  ],
 ]);
