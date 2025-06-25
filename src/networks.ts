@@ -841,6 +841,6 @@ export const networkInfo = new Map<number, NetworkInfo>([
       currencySymbol: "G",
       baseAPI: "https://transaction-testnet.safe.gravity.xyz/api/v1",
       stagingBaseAPI: "https://transaction-testnet.staging.safe.gravity.xyz/api/v1",
-    }
+    },
   ],
 ]);
