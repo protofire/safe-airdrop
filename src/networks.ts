@@ -832,4 +832,26 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction-testnet.staging.safe.game7.io/api/v1",
     },
   ],
+  [
+    660279,
+    {
+      chainID: 660279,
+      name: "Xai Mainnet",
+      shortName: "xai",
+      currencySymbol: "XAI",
+      baseAPI: "https://transaction.safe.xai.games/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.xai.games/api/v1",
+    }
+  ],
+  [
+    37714555429,
+    {
+      chainID: 37714555429,
+      name: "Xai Testnet v2",
+      shortName: "xaitestnet",
+      currencySymbol: "sXAI",
+      baseAPI: "https://transaction-testnet.safe.xai.games",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.xai.games",
+    }
+  ],
 ]);
