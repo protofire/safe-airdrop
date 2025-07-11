@@ -883,8 +883,8 @@ export const networkInfo = new Map<number, NetworkInfo>([
       name: "Xai Testnet v2",
       shortName: "xaitestnet",
       currencySymbol: "sXAI",
-      baseAPI: "https://transaction-testnet.safe.xai.games",
-      stagingBaseAPI: "https://transaction-testnet.staging.safe.xai.games",
+      baseAPI: "https://transaction-testnet.safe.xai.games/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.xai.games/api/v1",
     }
   ],
 ]);
