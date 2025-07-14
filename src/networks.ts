@@ -874,7 +874,7 @@ export const networkInfo = new Map<number, NetworkInfo>([
       currencySymbol: "XAI",
       baseAPI: "https://transaction.safe.xai.games/api/v1",
       stagingBaseAPI: "https://transaction.staging.safe.xai.games/api/v1",
-    }
+    },
   ],
   [
     37714555429,
@@ -885,6 +885,6 @@ export const networkInfo = new Map<number, NetworkInfo>([
       currencySymbol: "sXAI",
       baseAPI: "https://transaction-testnet.safe.xai.games/api/v1",
       stagingBaseAPI: "https://transaction-testnet.staging.safe.xai.games/api/v1",
-    }
+    },
   ],
 ]);
