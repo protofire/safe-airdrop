@@ -841,7 +841,7 @@ export const networkInfo = new Map<number, NetworkInfo>([
       currencySymbol: "XAI",
       baseAPI: "https://transaction.safe.xai.games/api/v1",
       stagingBaseAPI: "https://transaction.staging.safe.xai.games/api/v1",
-    }
+    },
   ],
   [
     37714555429,
@@ -850,8 +850,41 @@ export const networkInfo = new Map<number, NetworkInfo>([
       name: "Xai Testnet v2",
       shortName: "xaitestnet",
       currencySymbol: "sXAI",
-      baseAPI: "https://transaction-testnet.safe.xai.games",
-      stagingBaseAPI: "https://transaction-testnet.staging.safe.xai.games",
-    }
+      baseAPI: "https://transaction-testnet.safe.xai.games/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.xai.games/api/v1",
+    },
   ],
+  [
+    1328,
+    {
+      chainID: 1328,
+      name: "Sei Testnet",
+      shortName: "sei-testnet",
+      currencySymbol: "SEI",
+      baseAPI: "https://transaction-testnet.sei-safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.sei-safe.protofire.io/api/v1",
+    },
+  ],
+  [
+    1329,
+    {
+      chainID: 1329,
+      name: "Sei Network",
+      shortName: "sei",
+      currencySymbol: "SEI",
+      baseAPI: "https://transaction.sei-safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction.staging.sei-safe.protofire.io/api/v1",
+    },
+  ],
+  [
+    713715,
+    {
+      chainID: 713715,
+      name: "Sei Devnet",
+      shortName: "sei-devnet",
+      currencySymbol: "SEI",
+      baseAPI: "https://transaction-devnet.sei-safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-devnet.staging.sei-safe.protofire.io/api/v1",
+    },
+  ]
 ]);
