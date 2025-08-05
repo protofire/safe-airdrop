@@ -833,6 +833,39 @@ export const networkInfo = new Map<number, NetworkInfo>([
     },
   ],
   [
+    13505,
+    {
+      chainID: 13505,
+      name: "Gravity Alpha Testnet Sepolia",
+      shortName: "gravitysep",
+      currencySymbol: "G",
+      baseAPI: "https://transaction-testnet.safe.gravity.xyz/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.gravity.xyz/api/v1",
+    },
+  ],
+  [
+    360,
+    {
+      chainID: 360,
+      name: "Shape",
+      shortName: "shape",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction.safe.shape.network/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.shape.network/api/v1",
+    },
+  ],
+  [
+    11011,
+    {
+      chainID: 11011,
+      name: "Shape Sepolia Testnet",
+      shortName: "shapesep",
+      currencySymbol: "ETH",
+      baseAPI: "https://transaction-testnet.safe.shape.network/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.shape.network/api/v1",
+    },
+  ],
+  [
     660279,
     {
       chainID: 660279,
