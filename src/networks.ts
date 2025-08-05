@@ -887,4 +887,59 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction-testnet.staging.safe.xai.games/api/v1",
     },
   ],
+  [
+    1328,
+    {
+      chainID: 1328,
+      name: "Sei Testnet",
+      shortName: "sei-testnet",
+      currencySymbol: "SEI",
+      baseAPI: "https://transaction-testnet.sei-safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.sei-safe.protofire.io/api/v1",
+    },
+  ],
+  [
+    1329,
+    {
+      chainID: 1329,
+      name: "Sei Network",
+      shortName: "sei",
+      currencySymbol: "SEI",
+      baseAPI: "https://transaction.sei-safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction.staging.sei-safe.protofire.io/api/v1",
+    },
+  ],
+  [
+    713715,
+    {
+      chainID: 713715,
+      name: "Sei Devnet",
+      shortName: "sei-devnet",
+      currencySymbol: "SEI",
+      baseAPI: "https://transaction-devnet.sei-safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-devnet.staging.sei-safe.protofire.io/api/v1",
+    },
+  ],
+  [
+    41923,
+    {
+      chainID: 41923,
+      name: "EDU Chain",
+      shortName: "edu-chain",
+      currencySymbol: "EDU",
+      baseAPI: "https://transaction.safe.educhain.xyz/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.educhain.xyz/api/v1",
+    },
+  ],
+  [
+    656476,
+    {
+      chainID: 656476,
+      name: "EDU Chain Testnet",
+      shortName: "open-campus-codex",
+      currencySymbol: "EDU",
+      baseAPI: "https://transaction.staging.safe.educhain.xyz/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.educhain.xyz/api/v1",
+    },
+  ],
 ]);
