@@ -886,5 +886,27 @@ export const networkInfo = new Map<number, NetworkInfo>([
       baseAPI: "https://transaction-devnet.sei-safe.protofire.io/api/v1",
       stagingBaseAPI: "https://transaction-devnet.staging.sei-safe.protofire.io/api/v1",
     },
-  ]
+  ],
+  [
+    41923,
+    {
+      chainID: 41923,
+      name: "EDU Chain",
+      shortName: "edu-chain",
+      currencySymbol: "EDU",
+      baseAPI: "https://transaction.safe.educhain.xyz/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.educhain.xyz/api/v1",
+    },
+  ],
+  [
+    656476,
+    {
+      chainID: 656476,
+      name: "EDU Chain Testnet",
+      shortName: "open-campus-codex",
+      currencySymbol: "EDU",
+      baseAPI: "https://transaction.staging.safe.educhain.xyz/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.educhain.xyz/api/v1",
+    },
+  ],
 ]);
