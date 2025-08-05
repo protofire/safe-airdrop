@@ -625,6 +625,39 @@ export const networkInfo = new Map<number, NetworkInfo>([
     },
   ],
   [
+    15003,
+    {
+      chainID: 15003,
+      name: "Immutable zkEVM Devnet",
+      shortName: "imx-devnet",
+      currencySymbol: "dIMX",
+      baseAPI: "https://transaction-devnet.safe.immutable.com/api/v1",
+      stagingBaseAPI: "https://transaction-devnet.safe.staging.immutable.com/api/v1",
+    },
+  ],
+  [
+    13371,
+    {
+      chainID: 13371,
+      name: "Immutable zkEVM",
+      shortName: "imx",
+      currencySymbol: "IMX",
+      baseAPI: "https://transaction.safe.immutable.com/api/v1",
+      stagingBaseAPI: "https://transaction.safe.staging.immutable.com/api/v1",
+    },
+  ],
+  [
+    13473,
+    {
+      chainID: 13473,
+      name: "Immutable zkEVM Testnet",
+      shortName: "imx-testnet",
+      currencySymbol: "tIMX",
+      baseAPI: "https://transaction-testnet.safe.immutable.com//api/v1",
+      stagingBaseAPI: "https://transaction-testnet.safe.staging.immutable.com/api/v1",
+    },
+  ],
+  [
     1666600000,
     {
       chainID: 1666600000,
