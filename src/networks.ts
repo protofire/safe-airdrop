@@ -625,6 +625,39 @@ export const networkInfo = new Map<number, NetworkInfo>([
     },
   ],
   [
+    15003,
+    {
+      chainID: 15003,
+      name: "Immutable zkEVM Devnet",
+      shortName: "imx-devnet",
+      currencySymbol: "dIMX",
+      baseAPI: "https://transaction-devnet.safe.immutable.com/api/v1",
+      stagingBaseAPI: "https://transaction-devnet.safe.staging.immutable.com/api/v1",
+    },
+  ],
+  [
+    13371,
+    {
+      chainID: 13371,
+      name: "Immutable zkEVM",
+      shortName: "imx",
+      currencySymbol: "IMX",
+      baseAPI: "https://transaction.safe.immutable.com/api/v1",
+      stagingBaseAPI: "https://transaction.safe.staging.immutable.com/api/v1",
+    },
+  ],
+  [
+    13473,
+    {
+      chainID: 13473,
+      name: "Immutable zkEVM Testnet",
+      shortName: "imx-testnet",
+      currencySymbol: "tIMX",
+      baseAPI: "https://transaction-testnet.safe.immutable.com//api/v1",
+      stagingBaseAPI: "https://transaction-testnet.safe.staging.immutable.com/api/v1",
+    },
+  ],
+  [
     1666600000,
     {
       chainID: 1666600000,
@@ -885,6 +918,61 @@ export const networkInfo = new Map<number, NetworkInfo>([
       currencySymbol: "sXAI",
       baseAPI: "https://transaction-testnet.safe.xai.games/api/v1",
       stagingBaseAPI: "https://transaction-testnet.staging.safe.xai.games/api/v1",
+    },
+  ],
+  [
+    1328,
+    {
+      chainID: 1328,
+      name: "Sei Testnet",
+      shortName: "sei-testnet",
+      currencySymbol: "SEI",
+      baseAPI: "https://transaction-testnet.sei-safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.sei-safe.protofire.io/api/v1",
+    },
+  ],
+  [
+    1329,
+    {
+      chainID: 1329,
+      name: "Sei Network",
+      shortName: "sei",
+      currencySymbol: "SEI",
+      baseAPI: "https://transaction.sei-safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction.staging.sei-safe.protofire.io/api/v1",
+    },
+  ],
+  [
+    713715,
+    {
+      chainID: 713715,
+      name: "Sei Devnet",
+      shortName: "sei-devnet",
+      currencySymbol: "SEI",
+      baseAPI: "https://transaction-devnet.sei-safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-devnet.staging.sei-safe.protofire.io/api/v1",
+    },
+  ],
+  [
+    41923,
+    {
+      chainID: 41923,
+      name: "EDU Chain",
+      shortName: "edu-chain",
+      currencySymbol: "EDU",
+      baseAPI: "https://transaction.safe.educhain.xyz/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.educhain.xyz/api/v1",
+    },
+  ],
+  [
+    656476,
+    {
+      chainID: 656476,
+      name: "EDU Chain Testnet",
+      shortName: "open-campus-codex",
+      currencySymbol: "EDU",
+      baseAPI: "https://transaction.staging.safe.educhain.xyz/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.educhain.xyz/api/v1",
     },
   ],
 ]);
