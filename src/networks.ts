@@ -971,7 +971,7 @@ export const networkInfo = new Map<number, NetworkInfo>([
       name: "EDU Chain Testnet",
       shortName: "open-campus-codex",
       currencySymbol: "EDU",
-      baseAPI: "https://transaction.staging.safe.educhain.xyz/api/v1",
+      baseAPI: "https://transaction-testnet.safe.educhain.xyz/api/v1",
       stagingBaseAPI: "https://transaction-testnet.staging.safe.educhain.xyz/api/v1",
     },
   ],
