@@ -806,8 +806,8 @@ export const networkInfo = new Map<number, NetworkInfo>([
       name: "Abstract Mainnet",
       shortName: "abstract",
       currencySymbol: "ETH",
-      baseAPI: "https://transaction.abstract-safe.protofire.io/api/v1",
-      stagingBaseAPI: "https://transaction.staging.abstract-safe.protofire.io/api/v1",
+      baseAPI: "https://transaction.safe.abs.xyz/api/v1",
+      stagingBaseAPI: "https://transaction.staging.safe.abs.xyz/api/v1",
     },
   ],
   [
@@ -817,8 +817,8 @@ export const networkInfo = new Map<number, NetworkInfo>([
       name: "Abstract Sepolia",
       shortName: "abstract-sepolia",
       currencySymbol: "ETH",
-      baseAPI: "https://transaction-testnet.abstract-safe.protofire.io/api/v1",
-      stagingBaseAPI: "https://transaction-testnet.staging.abstract-safe.protofire.io/api/v1",
+      baseAPI: "https://transaction-testnet.safe.abs.xyz/api/v1",
+      stagingBaseAPI: "https://transaction-testnet.staging.safe.abs.xyz/api/v1",
     },
   ],
   [
