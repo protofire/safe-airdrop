@@ -975,4 +975,26 @@ export const networkInfo = new Map<number, NetworkInfo>([
       stagingBaseAPI: "https://transaction-testnet.staging.safe.educhain.xyz/api/v1",
     },
   ],
+  [
+    5888,
+    {
+      chainID: 5888,
+      name: "MANTRA Chain EVM",
+      shortName: "mantra_evm",
+      currencySymbol: "OM",
+      baseAPI: "https://transaction-mantra.safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-mantra.stage.safe.protofire.io/api/v1",
+    },
+  ],
+  [
+    5887,
+    {
+      chainID: 5887,
+      name: "MANTRACHAIN Testnet",
+      shortName: "dukong",
+      currencySymbol: "OM",
+      baseAPI: "https://transaction-mantra-testnet.safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-mantra-testnet.stage.safe.protofire.io/api/v1",
+    },
+  ]
 ]);
