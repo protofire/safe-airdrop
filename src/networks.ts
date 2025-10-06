@@ -996,5 +996,5 @@ export const networkInfo = new Map<number, NetworkInfo>([
       baseAPI: "https://transaction-mantra-testnet.safe.protofire.io/api/v1",
       stagingBaseAPI: "https://transaction-mantra-testnet.w3.safe.protofire.io/api/v1",
     },
-  ]
+  ],
 ]);
