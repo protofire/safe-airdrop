@@ -983,7 +983,7 @@ export const networkInfo = new Map<number, NetworkInfo>([
       shortName: "mantra_evm",
       currencySymbol: "OM",
       baseAPI: "https://transaction-mantra.safe.protofire.io/api/v1",
-      stagingBaseAPI: "https://transaction-mantra.stage.safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-mantra.w3.safe.protofire.io/api/v1",
     },
   ],
   [
@@ -994,7 +994,7 @@ export const networkInfo = new Map<number, NetworkInfo>([
       shortName: "dukong",
       currencySymbol: "OM",
       baseAPI: "https://transaction-mantra-testnet.safe.protofire.io/api/v1",
-      stagingBaseAPI: "https://transaction-mantra-testnet.stage.safe.protofire.io/api/v1",
+      stagingBaseAPI: "https://transaction-mantra-testnet.w3.safe.protofire.io/api/v1",
     },
   ]
 ]);
