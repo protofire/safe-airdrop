@@ -724,6 +724,22 @@ export const _networkInfo: Array<NetworkInfo> = [
     baseAPI: "https://transaction-mantra-testnet.safe.protofire.io/api/v1",
     stagingBaseAPI: "https://transaction-mantra-testnet.w3.safe.protofire.io/api/v1",
   },
+  {
+    chainID: 81457,
+    name: "Blast Mainnet",
+    shortName: "blast",
+    currencySymbol: "ETH",
+    baseAPI: "https://transaction-blast.safe.protofire.io/api/v1",
+    stagingBaseAPI: "https://transaction-blast.stage.safe.protofire.io/api/v1",
+  },
+  {
+    chainID: 168587773,
+    name: "Blast Sepolia",
+    shortName: "blastsepolia",
+    currencySymbol: "ETH",
+    baseAPI: "https://transaction-blast-testnet.safe.protofire.io/api/v1",
+    stagingBaseAPI: "https://transaction-blast-testnet.stage.safe.protofire.io/api/v1",
+  },
 ];
 
 export const networkInfo = new Map<number, NetworkInfo>(_networkInfo.map((info) => [info.chainID, info]));
