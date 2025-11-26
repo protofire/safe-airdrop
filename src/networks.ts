@@ -597,6 +597,14 @@ export const _networkInfo: Array<NetworkInfo> = [
     stagingBaseAPI: "https://transaction-testnet.staging.safe.abs.xyz/api/v1",
   },
   {
+    chainID: 80069,
+    name: "Berachain Bepolia",
+    shortName: "berachain-bepolia",
+    currencySymbol: "BERA",
+    baseAPI: "https://transaction-bepolia.safe.berachain.com/api/v1",
+    stagingBaseAPI: "https://transaction-bepolia.staging.safe.berachain.com/api/v1",
+  },
+  {
     chainID: 80094,
     name: "Berachain",
     shortName: "berachain",
