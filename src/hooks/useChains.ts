@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { NetworkInfo, staticNetworkInfo } from "src/networks";
+import { networkInfo, NetworkInfo } from "src/networks";
 import { setNetworks } from "src/stores/slices/networksSlice";
 import { useAppDispatch } from "src/stores/store";
 import useSwr from "swr";
@@ -57,7 +57,7 @@ const useChains = () => {
 
   return useMemo(() => {
     if (isLoading || chainConfigs === undefined) {
-      return staticNetworkInfo;
+      return networkInfo;
     } else {
       const mappedNetworks = new Map<number, NetworkInfo>();
       chainConfigs.forEach((chainConfig) => {
