@@ -1,4 +1,4 @@
-type NetworkInfo = {
+export type NetworkInfo = {
   shortName: string;
   chainID: number;
   name: string;
