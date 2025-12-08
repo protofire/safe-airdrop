@@ -748,6 +748,22 @@ export const _networkInfo: Array<NetworkInfo> = [
     baseAPI: "https://transaction-blast-testnet.safe.protofire.io/api/v1",
     stagingBaseAPI: "https://transaction-blast-testnet.stage.safe.protofire.io/api/v1",
   },
+  {
+    chainID: 9745,
+    name: "Plasma Mainnet",
+    shortName: "plasma",
+    currencySymbol: "XPL",
+    baseAPI: "https://transaction-plasma.safe.protofire.io/api/v1",
+    stagingBaseAPI: "https://transaction-plasma.stage.safe.protofire.io/api/v1",
+  },
+  {
+    chainID: 9746,
+    name: "Plasma Testnet",
+    shortName: "plasma-testnet",
+    currencySymbol: "XPL",
+    baseAPI: "https://transaction-plasma-testnet.safe.protofire.io/api/v1",
+    stagingBaseAPI: "https://transaction-plasma-testnet.stage.safe.protofire.io/api/v1",
+  },
 ];
 
 export const networkInfo = new Map<number, NetworkInfo>(_networkInfo.map((info) => [info.chainID, info]));
