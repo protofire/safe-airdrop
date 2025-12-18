@@ -30,6 +30,8 @@ const useErc20Balances = (safeAddress?: string, chainId?: number) => {
       }
       const balances = await sdk.safe.experimental_getBalances({});
 
+      console.log("Fetched ERC20 balances:", balances);
+
       const assetBalances: AssetBalance = balances.items.map((balance) => ({
         tokenAddress: balance.tokenInfo.address,
         token: {
