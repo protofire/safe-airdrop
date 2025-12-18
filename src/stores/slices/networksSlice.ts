@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { NetworkInfo, staticNetworkInfo } from "src/networks";
+import { NetworkInfo, networkInfo } from "src/networks";
 
 import { RootState } from "../store";
 
@@ -9,7 +9,7 @@ export interface NetworksState {
 
 const initialState: NetworksState = {
   // Initially we use our default networks as a fallback if the service is not reachable
-  networks: [...staticNetworkInfo.values()],
+  networks: [...networkInfo.values()],
 };
 
 export const networksSlice = createSlice({
