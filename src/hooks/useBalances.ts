@@ -1,3 +1,4 @@
+import { useSafeAppsSDK } from "@safe-global/safe-apps-react-sdk";
 import { SafeInfo } from "@safe-global/safe-apps-sdk";
 import { useEffect, useMemo } from "react";
 import { NetworkInfo } from "src/networks";
@@ -19,22 +20,28 @@ const getBaseURL = (chainConfig: NetworkInfo, safeAddress: string, version: "v1"
 const useErc20Balances = (safeAddress?: string, chainId?: number) => {
   const chainConfig = useCurrentChain();
 
+  const { sdk } = useSafeAppsSDK();
+
   const { data, isLoading } = useSwr(
     !safeAddress || !chainConfig ? null : "erc20-balances",
     async () => {
       if (!chainConfig || !safeAddress) {
         return undefined;
       }
-      const endpointUrl = `${getBaseURL(chainConfig, safeAddress, "v1")}/balances?trusted=false&exclude_spam=true`;
+      const balances = await sdk.safe.experimental_getBalances({});
 
-      const result = await fetch(endpointUrl).then((resp) => {
-        if (resp.ok) {
-          return resp.json() as Promise<AssetBalance>;
-        }
-        throw new Error("Error fetching collectibles");
-      });
+      const assetBalances: AssetBalance = balances.items.map((balance) => ({
+        tokenAddress: balance.tokenInfo.address,
+        token: {
+          name: balance.tokenInfo.name,
+          symbol: balance.tokenInfo.symbol,
+          decimals: balance.tokenInfo.decimals,
+        },
+        balance: balance.balance,
+        decimals: balance.tokenInfo.decimals,
+      }));
 
-      return result;
+      return assetBalances;
     },
     { errorRetryCount: 1, revalidateOnFocus: false },
   );
