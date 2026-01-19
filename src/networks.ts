@@ -474,7 +474,7 @@ export const _networkInfo: Array<NetworkInfo> = [
     name: "Immutable zkEVM Testnet",
     shortName: "imx-testnet",
     currencySymbol: "tIMX",
-    baseAPI: "https://transaction-testnet.safe.immutable.com//api/v1",
+    baseAPI: "https://transaction-testnet.safe.immutable.com/api/v1",
     stagingBaseAPI: "https://transaction-testnet.safe.staging.immutable.com/api/v1",
   },
   {
