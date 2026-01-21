@@ -764,6 +764,22 @@ export const _networkInfo: Array<NetworkInfo> = [
     baseAPI: "https://transaction-plasma-testnet.safe.protofire.io/api/v1",
     stagingBaseAPI: "https://transaction-plasma-testnet.stage.safe.protofire.io/api/v1",
   },
+  {
+    chainID: 7001,
+    name: "ZetaChain Testnet",
+    shortName: "zetachain-athens",
+    currencySymbol: "ZETA",
+    baseAPI: "https://transaction-testnet.safe.zetachain.com/api/v1",
+    stagingBaseAPI: "https://transaction-testnet.staging.safe.zetachain.com/api/v1",
+  },
+  {
+    chainID: 7000,
+    name: "ZetaChain Mainnet",
+    shortName: "zetachain-mainnet",
+    currencySymbol: "ZETA",
+    baseAPI: "https://transaction.safe.zetachain.com/api/v1",
+    stagingBaseAPI: "https://transaction.staging.safe.zetachain.com/api/v1",
+  },
 ];
 
 export const networkInfo = new Map<number, NetworkInfo>(_networkInfo.map((info) => [info.chainID, info]));
