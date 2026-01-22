@@ -796,6 +796,14 @@ export const _networkInfo: Array<NetworkInfo> = [
     baseAPI: "https://transaction-testnet.safe.ethereal.trade/api/v1",
     stagingBaseAPI: "https://transaction-testnet.safe.etherealtest.net/api/v1",
   },
+  {
+    chainID: 8150,
+    name: "Alpen Testnet",
+    shortName: "alpen",
+    currencySymbol: "sBTC",
+    baseAPI: "https://transaction-alpen-testnet.safe.protofire.io/api/v1",
+    stagingBaseAPI: "https://transaction-alpen-testnet.stage.safe.protofire.io/api/v1",
+  },
 ];
 
 export const networkInfo = new Map<number, NetworkInfo>(_networkInfo.map((info) => [info.chainID, info]));
