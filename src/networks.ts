@@ -764,6 +764,46 @@ export const _networkInfo: Array<NetworkInfo> = [
     baseAPI: "https://transaction-plasma-testnet.safe.protofire.io/api/v1",
     stagingBaseAPI: "https://transaction-plasma-testnet.stage.safe.protofire.io/api/v1",
   },
+  {
+    chainID: 7001,
+    name: "ZetaChain Testnet",
+    shortName: "zetachain-athens",
+    currencySymbol: "ZETA",
+    baseAPI: "https://transaction-testnet.safe.zetachain.com/api/v1",
+    stagingBaseAPI: "https://transaction-testnet.staging.safe.zetachain.com/api/v1",
+  },
+  {
+    chainID: 7000,
+    name: "ZetaChain Mainnet",
+    shortName: "zetachain-mainnet",
+    currencySymbol: "ZETA",
+    baseAPI: "https://transaction.safe.zetachain.com/api/v1",
+    stagingBaseAPI: "https://transaction.staging.safe.zetachain.com/api/v1",
+  },
+  {
+    chainID: 5064014,
+    name: "Ethereal",
+    shortName: "ethereal",
+    currencySymbol: "USDe",
+    baseAPI: "https://transaction.safe.ethereal.trade/api/v1",
+    stagingBaseAPI: "https://transaction.safe.etherealtest.net/api/v1",
+  },
+  {
+    chainID: 13374202,
+    name: "Ethereal Testnet",
+    shortName: "ethereal-testnet-0",
+    currencySymbol: "USDe",
+    baseAPI: "https://transaction-testnet.safe.ethereal.trade/api/v1",
+    stagingBaseAPI: "https://transaction-testnet.safe.etherealtest.net/api/v1",
+  },
+  {
+    chainID: 8150,
+    name: "Alpen Testnet",
+    shortName: "alpen",
+    currencySymbol: "sBTC",
+    baseAPI: "https://transaction-alpen-testnet.safe.protofire.io/api/v1",
+    stagingBaseAPI: "https://transaction-alpen-testnet.stage.safe.protofire.io/api/v1",
+  },
 ];
 
 export const networkInfo = new Map<number, NetworkInfo>(_networkInfo.map((info) => [info.chainID, info]));
