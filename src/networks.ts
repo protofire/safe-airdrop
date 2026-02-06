@@ -804,6 +804,14 @@ export const _networkInfo: Array<NetworkInfo> = [
     baseAPI: "https://transaction-alpen-testnet.safe.protofire.io/api/v1",
     stagingBaseAPI: "https://transaction-alpen-testnet.stage.safe.protofire.io/api/v1",
   },
+  {
+    chainID: 167013,
+    name: "Taiko Hoodi",
+    shortName: "tko-hoodi",
+    currencySymbol: "ETH",
+    baseAPI: "https://transaction-testnet.safe.taiko.xyz/api/v1",
+    stagingBaseAPI: "https://transaction-testnet.staging.safe.taiko.xyz/api/v1",
+  },
 ];
 
 export const networkInfo = new Map<number, NetworkInfo>(_networkInfo.map((info) => [info.chainID, info]));
