@@ -41,16 +41,24 @@ const useChains = () => {
   const { data: chainConfigs, isLoading } = useSwr(
     CONFIG_SERVICE_URL ? "chains" : null,
     async (): Promise<NetworkInfo[]> => {
-      const result = await fetch(CONFIG_SERVICE_URL!).then((resp) => {
-        if (resp.ok) {
-          return resp.json() as Promise<ChainEndpointResponse>;
-        }
-        return Promise.reject(new Error("Unexpected error while loading chain configs. Falling back to static list."));
-      });
+      const allChains: ChainEndpointResponse["results"] = [];
+      let nextUrl: string | null = CONFIG_SERVICE_URL!;
 
-      console.log("chainConfigs", result);
+      while (nextUrl) {
+        const result = await fetch(nextUrl).then((resp) => {
+          if (resp.ok) {
+            return resp.json() as Promise<ChainEndpointResponse>;
+          }
+          return Promise.reject(
+            new Error("Unexpected error while loading chain configs. Falling back to static list."),
+          );
+        });
 
-      return result.results.map((chainConfig) => ({
+        allChains.push(...result.results);
+        nextUrl = result.next;
+      }
+
+      return allChains.map((chainConfig) => ({
         chainID: Number(chainConfig.chainId),
         name: chainConfig.chainName,
         shortName: chainConfig.shortName,
