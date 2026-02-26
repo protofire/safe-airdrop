@@ -1,7 +1,7 @@
 import { Box, Button, Card, CircularProgress, Grid, Typography, useTheme } from "@mui/material";
 import { useSafeAppsSDK } from "@safe-global/safe-apps-react-sdk";
 import { BaseTransaction, GatewayTransactionDetails } from "@safe-global/safe-apps-sdk";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Unsubscribe } from "redux";
 
@@ -16,10 +16,9 @@ import { AssetTransfer, CollectibleTransfer, useCsvParser } from "./hooks/useCsv
 import { useEnsResolver } from "./hooks/useEnsResolver";
 import CheckIcon from "./static/check.svg";
 import AppIcon from "./static/logo.svg";
-import { useGetAssetBalanceQuery, useGetAllNFTsQuery } from "./stores/api/balanceApi";
 import { setupParserListener } from "./stores/middleware/parseListener";
 import { setSafeInfo } from "./stores/slices/safeInfoSlice";
-import { RootState, startAppListening } from "./stores/store";
+import { RootState, selectIsLoading, startAppListening, useAppSelector } from "./stores/store";
 import { buildAssetTransfers, buildCollectibleTransfers } from "./transfers/transfers";
 
 import "./styles/globals.css";
@@ -28,16 +27,17 @@ const App: React.FC = () => {
   const theme = useTheme();
   const { isLoading } = useTokenList();
   const { sdk, safe } = useSafeAppsSDK();
-  const assetBalanceQuery = useGetAssetBalanceQuery();
-  const nftBalanceQuery = useGetAllNFTsQuery();
 
   const { messages } = useSelector((state: RootState) => state.messages);
+  const errorMessages = useMemo(() => messages.filter((msg) => msg.severity !== "success"), [messages]);
   const { transfers, parsing } = useSelector((state: RootState) => state.csvEditor);
 
   const [pendingTx, setPendingTx] = useState<GatewayTransactionDetails>();
   const { parseCsv } = useCsvParser();
   const ensResolver = useEnsResolver();
   const dispatch = useDispatch();
+
+  const isDataLoading = useAppSelector(selectIsLoading);
 
   useEffect(() => {
     dispatch(setSafeInfo(safe));
@@ -78,7 +78,7 @@ const App: React.FC = () => {
       <Box display="flex" flexDirection="column" justifyContent="left">
         {
           <>
-            {isLoading || assetBalanceQuery.isLoading || nftBalanceQuery.isLoading ? (
+            {isLoading || isDataLoading ? (
               <Loading />
             ) : (
               <Box display="flex" flexDirection="column" gap={2}>
@@ -91,7 +91,7 @@ const App: React.FC = () => {
                       <FAQModal />
                     </Box>
                   </Grid>
-                  <Grid item xs display="flex" direction="row" alignItems="center" gap={2}>
+                  <Grid item xs display="flex" alignItems="center" gap={2}>
                     <img
                       src={CheckIcon}
                       alt="check"
@@ -126,7 +126,7 @@ const App: React.FC = () => {
                         disabled={parsing || transfers.length + collectibleTransfers.length === 0}
                       >
                         {parsing && <CircularProgress size={24} color="primary" />}
-                        {messages.length === 0 ? "Submit" : "Submit with errors"}
+                        {errorMessages.length === 0 ? "Submit" : "Submit with errors"}
                       </Button>
                       <MessageSnackbar />
                     </Box>
