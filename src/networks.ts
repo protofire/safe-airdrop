@@ -804,6 +804,22 @@ export const _networkInfo: Array<NetworkInfo> = [
     baseAPI: "https://transaction-alpen-testnet.safe.protofire.io/api/v1",
     stagingBaseAPI: "https://transaction-alpen-testnet.stage.safe.protofire.io/api/v1",
   },
+  {
+    chainID: 88888,
+    name: "Chiliz",
+    shortName: "chzmainnet",
+    currencySymbol: "CHZ",
+    baseAPI: "https://transaction.safe.chiliz.com/api/v1",
+    stagingBaseAPI: "https://transaction.staging.safe.chiliz.com/api/v1",
+  },
+  {
+    chainID: 88882,
+    name: "Chiliz Spicy",
+    shortName: "chzspicy",
+    currencySymbol: "CHZ",
+    baseAPI: "https://transaction-testnet.safe.chiliz.com/api/v1",
+    stagingBaseAPI: "https://transaction-testnet.staging.safe.chiliz.com/api/v1",
+  },
 ];
 
 export const networkInfo = new Map<number, NetworkInfo>(_networkInfo.map((info) => [info.chainID, info]));
