@@ -828,6 +828,22 @@ export const _networkInfo: Array<NetworkInfo> = [
     baseAPI: "https://transaction-testnet.safe.chiliz.com/api/v1",
     stagingBaseAPI: "https://transaction-testnet.staging.safe.chiliz.com/api/v1",
   },
+  {
+    chainID: 314,
+    name: "Filecoin",
+    shortName: "filecoin",
+    currencySymbol: "FIL",
+    baseAPI: "https://transaction.safe.filecoin.io",
+    stagingBaseAPI: "https://transaction.staging.safe.filecoin.io",
+  },
+  {
+    chainID: 314159,
+    name: "Filecoin Calibration",
+    shortName: "filecoin-calibration",
+    currencySymbol: "tFIL",
+    baseAPI: "https://transaction-testnet.safe.filecoin.io",
+    stagingBaseAPI: "https://transaction-testnet.staging.safe.filecoin.io",
+  },
 ];
 
 export const networkInfo = new Map<number, NetworkInfo>(_networkInfo.map((info) => [info.chainID, info]));
