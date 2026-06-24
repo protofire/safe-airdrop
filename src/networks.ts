@@ -828,6 +828,14 @@ export const _networkInfo: Array<NetworkInfo> = [
     baseAPI: "https://transaction-testnet.safe.filecoin.io",
     stagingBaseAPI: "https://transaction-testnet.staging.safe.filecoin.io",
   },
+  {
+    chainID: 560048,
+    name: "Hoodi Testnet",
+    shortName: "hoe",
+    currencySymbol: "ETH",
+    baseAPI: "https://transaction-ethereum-hoodi.safe.protofire.io/api/v1",
+    stagingBaseAPI: "https://transaction-ethereum-hoodi.stage.safe.protofire.io/api/v1",
+  },
 ];
 
 export const networkInfo = new Map<number, NetworkInfo>(_networkInfo.map((info) => [info.chainID, info]));
