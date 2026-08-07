@@ -5,11 +5,40 @@ import * as useCollectibleTokenInfoProvider from "../hooks/collectibleTokenInfoP
 import * as useTokenInfoProvider from "../hooks/token";
 import { TokenMap, MinimalTokenInfo, fetchTokenList, TokenInfoProvider } from "../hooks/token";
 import { AssetTransfer, CollectibleTransfer, useCsvParser } from "../hooks/useCsvParser";
+import * as useCurrentChain from "../hooks/useCurrentChain";
 import type { EnsResolver } from "../hooks/useEnsResolver";
 import * as useEnsResolver from "../hooks/useEnsResolver";
+import type { NetworkInfo } from "../networks";
 import { testData } from "../test/util";
 
 const HEADER_ERC20 = "token_type,token_address,receiver,amount";
+
+// Known base58/hex pairs, copied from src/utils/tronAddress.test.ts. The expectations below
+// are these literals, never a value recomputed through the code under test.
+const COUNTER_BASE58 = "TSqF5pn9FxP77jfQCy46NoFa5HXdQaYiwZ";
+const COUNTER_HEX = "0xb8f88c79d2d655a0acaf5982a13028ddf7628ebe";
+const USDT_BASE58 = "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t";
+const USDT_HEX = "0xa614f803b6fd780986a42c78ec9c7f77e6ded13c";
+
+// Chain entries stated as literals here rather than read from networks.ts, so the row-cap
+// expectations below do not recompute themselves from the config under test.
+const ETHEREUM_CHAIN: NetworkInfo = { chainID: 1, name: "Ethereum", shortName: "eth", currencySymbol: "ETH" };
+const SHASTA_CHAIN: NetworkInfo = {
+  chainID: 2494104990,
+  name: "Tron Shasta Testnet",
+  shortName: "trx-shasta",
+  currencySymbol: "TRX",
+  decimals: 6,
+  maxTransfers: 200,
+};
+// A Tron chain the static list does not know (e.g. served only by a gateway): no maxTransfers.
+const NILE_CHAIN: NetworkInfo = {
+  chainID: 3448148188,
+  name: "Tron Nile Testnet",
+  shortName: "trx-nile",
+  currencySymbol: "TRX",
+  decimals: 6,
+};
 
 let tokenList: TokenMap;
 let listedToken: MinimalTokenInfo;
@@ -45,6 +74,7 @@ describe("Parsing CSVs ", () => {
     mockTokenInfoProvider = {
       getTokenInfo: fetchTokenFromList,
       getNativeTokenSymbol: () => "ETH",
+      getNativeTokenDecimals: () => 18,
       getSelectedNetworkShortname: () => "eth",
     };
     jest.spyOn(useTokenInfoProvider, "useTokenInfoProvider").mockReturnValue(mockTokenInfoProvider);
@@ -104,6 +134,8 @@ describe("Parsing CSVs ", () => {
       isEnsEnabled: async () => true,
     };
     jest.spyOn(useEnsResolver, "useEnsResolver").mockReturnValue(mockEnsResolver);
+
+    jest.spyOn(useCurrentChain, "useCurrentChain").mockReturnValue(ETHEREUM_CHAIN);
   });
 
   it("should throw errors for invalid CSVs", async () => {
@@ -116,16 +148,26 @@ describe("Parsing CSVs ", () => {
     ]);
   });
 
-  it("should skip files with >400 lines of transfers", async () => {
+  it("should skip files with more transfers than the chain's row cap", async () => {
     const { result } = renderHook(() => useCsvParser());
 
     let largeCSV = csvStringFromRows(
       Array(501).fill(["erc20", listedToken.address, validReceiverAddress, "1"]),
       "token_type,token_address,receiver,amount",
     );
-    expect(result.current.parseCsv(largeCSV)).rejects.toEqual(
-      "Max number of lines exceeded. Due to the block gas limit transactions are limited to 500 lines.",
+    await expect(result.current.parseCsv(largeCSV)).rejects.toEqual(
+      "Max number of lines exceeded. Due to the block gas limit, transactions are limited to 500 lines.",
     );
+  });
+
+  it("parses a CSV that sits exactly on the default row cap", async () => {
+    const { result } = renderHook(() => useCsvParser());
+
+    const csv = csvStringFromRows(Array(500).fill(["native", "", validReceiverAddress, "1"]), HEADER_ERC20);
+
+    const [payment, warnings] = await result.current.parseCsv(csv);
+    expect(warnings).toHaveLength(0);
+    expect(payment).toHaveLength(500);
   });
 
   it("should transform simple, valid CSVs correctly", async () => {
@@ -428,6 +470,173 @@ describe("Parsing CSVs ", () => {
 
     expect(warningErc721WithInvalidReceiver.lineNum).toEqual(10);
     expect(warningErc721WithInvalidReceiver.message).toEqual("Invalid Receiver Address: 0xwhoopsie");
+  });
+
+  describe("on a Tron chain", () => {
+    let requestedTokenAddresses: string[];
+
+    beforeEach(() => {
+      requestedTokenAddresses = [];
+      jest.spyOn(useTokenInfoProvider, "useTokenInfoProvider").mockReturnValue({
+        getTokenInfo: async (tokenAddress: string) => {
+          requestedTokenAddresses.push(tokenAddress);
+          return tokenAddress.toLowerCase() === USDT_HEX
+            ? { address: tokenAddress, decimals: 6, symbol: "USDT" }
+            : undefined;
+        },
+        getNativeTokenSymbol: () => "TRX",
+        getNativeTokenDecimals: () => 6,
+        getSelectedNetworkShortname: () => "trx-shasta",
+      });
+      // ENS is disabled on Tron (§5.9); mirror that here so nothing resolves behind our back.
+      jest
+        .spyOn(useEnsResolver, "useEnsResolver")
+        .mockReturnValue({ ...mockEnsResolver, isEnsEnabled: async () => false });
+      jest.spyOn(useCurrentChain, "useCurrentChain").mockReturnValue(SHASTA_CHAIN);
+    });
+
+    it("blocks a CSV over the chain's lower row cap, naming that limit and its reason", async () => {
+      const { result } = renderHook(() => useCsvParser());
+
+      const largeCSV = csvStringFromRows(Array(201).fill(["native", "", COUNTER_BASE58, "1"]), HEADER_ERC20);
+
+      await expect(result.current.parseCsv(largeCSV)).rejects.toEqual(
+        "Max number of lines exceeded. Due to Tron's per-transaction energy and CPU limit, transactions are limited to 200 lines.",
+      );
+    });
+
+    it("parses a CSV that sits exactly on the chain's row cap", async () => {
+      const { result } = renderHook(() => useCsvParser());
+
+      const csv = csvStringFromRows(Array(200).fill(["native", "", COUNTER_BASE58, "1"]), HEADER_ERC20);
+
+      const [payment, warnings] = await result.current.parseCsv(csv);
+      expect(warnings).toHaveLength(0);
+      expect(payment).toHaveLength(200);
+    });
+
+    it("caps a Tron chain with no configured maxTransfers at the measured Tron default, not the EVM 500", async () => {
+      jest.spyOn(useCurrentChain, "useCurrentChain").mockReturnValue(NILE_CHAIN);
+      const { result } = renderHook(() => useCsvParser());
+
+      const largeCSV = csvStringFromRows(Array(201).fill(["native", "", COUNTER_BASE58, "1"]), HEADER_ERC20);
+
+      await expect(result.current.parseCsv(largeCSV)).rejects.toEqual(
+        "Max number of lines exceeded. Due to Tron's per-transaction energy and CPU limit, transactions are limited to 200 lines.",
+      );
+    });
+
+    it("parses a CSV on the row cap even when the file ends with a newline", async () => {
+      const { result } = renderHook(() => useCsvParser());
+
+      const csv = csvStringFromRows(Array(200).fill(["native", "", COUNTER_BASE58, "1"]), HEADER_ERC20) + "\n";
+
+      const [payment, warnings] = await result.current.parseCsv(csv);
+      expect(warnings).toHaveLength(0);
+      expect(payment).toHaveLength(200);
+    });
+
+    it("warns when a positive native amount is below the smallest unit instead of sending zero", async () => {
+      const { result } = renderHook(() => useCsvParser());
+
+      const [payment, warnings] = await result.current.parseCsv(
+        csvStringFromRows([["native", "", COUNTER_BASE58, "0.0000005"]], HEADER_ERC20),
+      );
+
+      expect(payment).toHaveLength(0);
+      expect(warnings).toHaveLength(1);
+      expect(warnings[0].message).toEqual("Amount is below the smallest unit of the token: 0.0000005");
+    });
+
+    it("accepts the smallest representable native amount", async () => {
+      const { result } = renderHook(() => useCsvParser());
+
+      const [payment, warnings] = await result.current.parseCsv(
+        csvStringFromRows([["native", "", COUNTER_BASE58, "0.000001"]], HEADER_ERC20),
+      );
+
+      expect(warnings).toHaveLength(0);
+      expect(payment).toHaveLength(1);
+    });
+
+    it("accepts a base58 receiver and stores it as checksummed hex, with the chain's native decimals", async () => {
+      const { result } = renderHook(() => useCsvParser());
+
+      const [payment, warnings] = await result.current.parseCsv(
+        csvStringFromRows([["native", "", COUNTER_BASE58, "1"]], HEADER_ERC20),
+      );
+
+      expect(warnings).toHaveLength(0);
+      expect(payment).toHaveLength(1);
+      const [nativeTransfer] = payment as AssetTransfer[];
+      expect(nativeTransfer.receiver.toLowerCase()).toEqual(COUNTER_HEX);
+      expect(nativeTransfer.receiver).toEqual("0xB8F88C79d2d655A0acAf5982A13028dDf7628EBe");
+      expect(nativeTransfer.decimals).toEqual(6);
+    });
+
+    it("resolves a base58 token_address through getTokenInfo in its hex form", async () => {
+      const { result } = renderHook(() => useCsvParser());
+
+      const [payment, warnings] = await result.current.parseCsv(
+        csvStringFromRows([["erc20", USDT_BASE58, COUNTER_BASE58, "1"]], HEADER_ERC20),
+      );
+
+      expect(warnings).toHaveLength(0);
+      expect(requestedTokenAddresses.map((address) => address.toLowerCase())).toEqual([USDT_HEX]);
+      const [erc20Transfer] = payment as AssetTransfer[];
+      expect(erc20Transfer.tokenAddress?.toLowerCase()).toEqual(USDT_HEX);
+      expect(erc20Transfer.decimals).toEqual(6);
+      expect(erc20Transfer.symbol).toEqual("USDT");
+    });
+
+    it("strips a matching trx-shasta: prefix from a hex receiver", async () => {
+      const { result } = renderHook(() => useCsvParser());
+
+      const [payment, warnings] = await result.current.parseCsv(
+        csvStringFromRows([["native", "", "trx-shasta:0xB8F88C79d2d655A0acAf5982A13028dDf7628EBe", "1"]], HEADER_ERC20),
+      );
+
+      expect(warnings).toHaveLength(0);
+      const [nativeTransfer] = payment as AssetTransfer[];
+      expect(nativeTransfer.receiver).toEqual("0xB8F88C79d2d655A0acAf5982A13028dDf7628EBe");
+    });
+
+    it("rejects a mistyped base58 receiver, quoting it exactly as typed", async () => {
+      const { result } = renderHook(() => useCsvParser());
+
+      // COUNTER_BASE58 with its last character changed -- the checksum no longer matches.
+      const [payment, warnings] = await result.current.parseCsv(
+        csvStringFromRows([["native", "", "TSqF5pn9FxP77jfQCy46NoFa5HXdQaYiwY", "1"]], HEADER_ERC20),
+      );
+
+      expect(payment).toHaveLength(0);
+      expect(warnings).toHaveLength(1);
+      expect(warnings[0].message).toEqual("Invalid Receiver Address: TSqF5pn9FxP77jfQCy46NoFa5HXdQaYiwY");
+    });
+
+    it("still accepts a plain hex receiver", async () => {
+      const { result } = renderHook(() => useCsvParser());
+
+      const [payment, warnings] = await result.current.parseCsv(
+        csvStringFromRows([["native", "", "0xB8F88C79d2d655A0acAf5982A13028dDf7628EBe", "1"]], HEADER_ERC20),
+      );
+
+      expect(warnings).toHaveLength(0);
+      const [nativeTransfer] = payment as AssetTransfer[];
+      expect(nativeTransfer.receiver).toEqual("0xB8F88C79d2d655A0acAf5982A13028dDf7628EBe");
+    });
+  });
+
+  it("rejects a base58 receiver on a non-Tron chain instead of converting it", async () => {
+    const { result } = renderHook(() => useCsvParser());
+
+    const [payment, warnings] = await result.current.parseCsv(
+      csvStringFromRows([["native", "", COUNTER_BASE58, "1"]], HEADER_ERC20),
+    );
+
+    expect(payment).toHaveLength(0);
+    expect(warnings).toHaveLength(1);
+    expect(warnings[0].message).toEqual(`Invalid Receiver Address: ${COUNTER_BASE58}`);
   });
 
   describe("Support backward compatibility", () => {

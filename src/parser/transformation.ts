@@ -5,6 +5,7 @@ import { CollectibleTokenInfoProvider } from "../hooks/collectibleTokenInfoProvi
 import { TokenInfoProvider } from "../hooks/token";
 import { AssetTransfer, CollectibleTransfer, CSVRow, Transfer, UnknownTransfer } from "../hooks/useCsvParser";
 import { EnsResolver } from "../hooks/useEnsResolver";
+import { isTronNetworkPrefix, normalizeTronAddress } from "../utils/tronAddress";
 
 interface PrePayment {
   receiver: string;
@@ -28,17 +29,26 @@ export const transform = (
   ensResolver: EnsResolver,
 ): Promise<Transfer | UnknownTransfer> => {
   const selectedChainShortname = tokenInfoProvider.getSelectedNetworkShortname();
+  // The only place base58 becomes hex (§5.4). Gated on the chain so a Tron address pasted into
+  // an Ethereum airdrop is rejected instead of silently resolving to a valid-looking address.
+  const isTron = isTronNetworkPrefix(selectedChainShortname);
 
   const trimmedReceiver = trimMatchingNetwork(row.receiver, selectedChainShortname);
 
   switch (row.token_type?.toLowerCase()) {
     case "erc20":
-      return transformAsset({ ...row, token_type: "erc20", receiver: trimmedReceiver }, tokenInfoProvider, ensResolver);
+      return transformAsset(
+        { ...row, token_type: "erc20", receiver: trimmedReceiver },
+        tokenInfoProvider,
+        ensResolver,
+        isTron,
+      );
     case "native":
       return transformAsset(
         { ...row, token_type: "native", receiver: trimmedReceiver },
         tokenInfoProvider,
         ensResolver,
+        isTron,
       );
     case "nft":
     case "erc721":
@@ -47,10 +57,16 @@ export const transform = (
         { ...row, token_type: "nft", receiver: trimmedReceiver },
         erc721InfoProvider,
         ensResolver,
+        isTron,
       );
     default:
       // Fallback so people can still use the old csv file format
-      return transformAsset({ ...row, token_type: "erc20", receiver: trimmedReceiver }, tokenInfoProvider, ensResolver);
+      return transformAsset(
+        { ...row, token_type: "erc20", receiver: trimmedReceiver },
+        tokenInfoProvider,
+        ensResolver,
+        isTron,
+      );
   }
 };
 
@@ -58,13 +74,14 @@ export const transformAsset = (
   row: Omit<CSVRow, "token_type"> & { token_type: "erc20" | "native" },
   tokenInfoProvider: TokenInfoProvider,
   ensResolver: EnsResolver,
+  isTron: boolean,
 ): Promise<Transfer> => {
   const selectedChainShortname = tokenInfoProvider.getSelectedNetworkShortname();
   const prePayment: PrePayment = {
     // avoids errors from getAddress. Invalid addresses are later caught in validateRow
-    tokenAddress: transformERC20TokenAddress(row.token_address),
+    tokenAddress: transformERC20TokenAddress(row.token_address, isTron),
     amount: row.amount ?? row.value ?? "",
-    receiver: normalizeAddress(trimMatchingNetwork(row.receiver, selectedChainShortname)),
+    receiver: normalizeAddress(trimMatchingNetwork(row.receiver, selectedChainShortname), isTron),
     tokenType: row.token_type,
   };
 
@@ -91,7 +108,7 @@ const toPayment = async (
       receiver: resolvedReceiverAddress,
       amount: row.amount,
       tokenAddress: row.tokenAddress,
-      decimals: 18,
+      decimals: tokenInfoProvider.getNativeTokenDecimals(),
       symbol: tokenInfoProvider.getNativeTokenSymbol(),
       receiverEnsName,
       token_type: "native",
@@ -134,14 +151,15 @@ export const transformCollectible = (
   row: Omit<CSVRow, "token_type"> & { token_type: "nft" },
   erc721InfoProvider: CollectibleTokenInfoProvider,
   ensResolver: EnsResolver,
+  isTron: boolean,
 ): Promise<Transfer> => {
   let amount = row.amount ?? row.value ?? "1";
   amount = amount === "" ? "1" : amount;
   const prePayment: PreCollectibleTransfer = {
     // avoids errors from getAddress. Invalid addresses are later caught in validateRow
-    tokenAddress: normalizeAddress(row.token_address),
+    tokenAddress: normalizeAddress(row.token_address, isTron),
     tokenId: row.id ?? "",
-    receiver: normalizeAddress(row.receiver),
+    receiver: normalizeAddress(row.receiver, isTron),
     tokenType: row.token_type,
     amount,
   };
@@ -206,8 +224,8 @@ const toCollectibleTransfer = async (
  * returns null if the tokenAddress is empty.
  * Parses and normalizes tokenAddress into a checksum address if the tokenAddress is provided
  */
-const transformERC20TokenAddress = (tokenAddress: string | null) =>
-  tokenAddress === "" || tokenAddress === null ? null : normalizeAddress(tokenAddress);
+const transformERC20TokenAddress = (tokenAddress: string | null, isTron: boolean) =>
+  tokenAddress === "" || tokenAddress === null ? null : normalizeAddress(tokenAddress, isTron);
 
 const trimMatchingNetwork = (address: string, selectedPrefix?: string) => {
   if (selectedPrefix && address && address.trim().startsWith(`${selectedPrefix}:`)) {
@@ -218,6 +236,11 @@ const trimMatchingNetwork = (address: string, selectedPrefix?: string) => {
 };
 
 /*
- *  Parses and normalizes tokenAddress
+ *  Parses and normalizes an address. On Tron a complete, checksum-valid base58 address becomes hex;
+ *  everything else (half-typed, mistyped, ENS names) is returned exactly as the user wrote it so the
+ *  validator reports it in the form they recognise.
  */
-const normalizeAddress = (address: string) => (utils.isAddress(address) ? utils.getAddress(address) : address);
+const normalizeAddress = (address: string, isTron: boolean) => {
+  const candidate = isTron ? normalizeTronAddress(address.trim()) : address;
+  return utils.isAddress(candidate) ? utils.getAddress(candidate) : candidate;
+};

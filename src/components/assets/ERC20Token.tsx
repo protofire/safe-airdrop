@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 import { EthHashInfo } from "@safe-global/safe-react-components";
+import { useCurrentChain } from "src/hooks/useCurrentChain";
+import { toDisplayAddress } from "src/utils/tronAddress";
 
 import { useTokenList } from "../../hooks/token";
 
@@ -23,6 +25,7 @@ const Container = styled.div`
 export const ERC20Token = (props: TokenProps) => {
   const { tokenAddress, symbol } = props;
   const { tokenList } = useTokenList();
+  const chainConfig = useCurrentChain();
   return (
     <Container>
       {tokenList.get(tokenAddress) && (
@@ -39,7 +42,11 @@ export const ERC20Token = (props: TokenProps) => {
       {symbol ? (
         <Typography noWrap>{symbol}</Typography>
       ) : tokenAddress ? (
-        <EthHashInfo address={tokenAddress} showAvatar={false} showCopyButton={false} />
+        <EthHashInfo
+          address={toDisplayAddress(tokenAddress, chainConfig?.shortName)}
+          showAvatar={false}
+          showCopyButton={false}
+        />
       ) : null}
     </Container>
   );

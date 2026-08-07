@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 
 import { fetchTokenList } from "../hooks/token";
-import { staticNetworkInfo } from "../networks";
+import { networkInfo as staticNetworkInfo } from "../networks";
 
 beforeEach(() => {
   jest.spyOn(window, "fetch").mockImplementation(() => {

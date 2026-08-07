@@ -1,16 +1,32 @@
 import { Web3Provider } from "@ethersproject/providers";
-import SafeProvider from "@safe-global/safe-apps-react-sdk";
 import { render, RenderResult, screen } from "@testing-library/react";
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import { unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import { Provider as ReduxProvider } from "react-redux";
+import { NetworkInfo } from "src/networks";
 import { makeStore, RootState } from "src/stores/store";
 
 import { useEnsResolver } from "../../hooks/useEnsResolver";
-import { sendSafeInfo, setupMocksForSafeProvider } from "../../test/safeUtil";
 import { testData } from "../../test/util";
+
+jest.mock("@safe-global/safe-apps-react-sdk", () => ({
+  useSafeAppsSDK: () => ({
+    safe: jest.requireActual("../../test/util").testData.dummySafeInfo,
+    sdk: { txs: { send: jest.fn() } },
+    connected: true,
+  }),
+}));
+
+const tronChain: NetworkInfo = {
+  chainID: testData.dummySafeInfo.chainId,
+  name: "Tron Shasta Testnet",
+  shortName: "trx-shasta",
+  currencySymbol: "TRX",
+  decimals: 6,
+  rpcUri: "https://tron-rpc.test.invalid/jsonrpc",
+};
 
 type TestENSComponentProps = {
   ensNamesToResolve?: string[];
@@ -81,11 +97,9 @@ const renderTestComponent = (container: HTMLElement, props: TestENSComponentProp
   const store = makeStore(props.initialReduxState);
 
   return render(
-    <SafeProvider loader={<div>loading...</div>}>
-      <ReduxProvider store={store}>
-        <TestENSComponent addressesToLookup={props.addressesToLookup} ensNamesToResolve={props.ensNamesToResolve} />
-      </ReduxProvider>
-    </SafeProvider>,
+    <ReduxProvider store={store}>
+      <TestENSComponent addressesToLookup={props.addressesToLookup} ensNamesToResolve={props.ensNamesToResolve} />
+    </ReduxProvider>,
     { container },
   );
 };
@@ -95,7 +109,6 @@ let container: HTMLDivElement | null = null;
 beforeEach(() => {
   container = document.createElement("div");
   document.body.appendChild(container);
-  setupMocksForSafeProvider();
 });
 
 afterEach(() => {
@@ -122,8 +135,6 @@ test("isEnsEnabled with ens capable network", async () => {
     }
   });
 
-  sendSafeInfo();
-
   expect(renderedContainer).toBeTruthy();
   const ensEnabledElement = await screen.findByTestId("isEnsEnabled");
   expect(ensEnabledElement?.innerHTML).toBe("true");
@@ -144,11 +155,29 @@ test("isEnsEnabled with non ens network", async () => {
     }
   });
 
-  sendSafeInfo();
+  expect(renderedContainer).toBeTruthy();
+  const ensEnabledElement = await screen.findByTestId("isEnsEnabled");
+  expect(ensEnabledElement?.innerHTML).toBe("false");
+});
+
+test("isEnsEnabled is false on a tron network without asking the bridge", async () => {
+  const getNetwork = jest.fn(() => Promise.reject(new Error("the bridge must not be asked for a network on tron")));
+  const fakeWeb3Provider: any = { getNetwork };
+
+  jest.spyOn(ethers.providers, "Web3Provider").mockImplementation(() => fakeWeb3Provider);
+  let renderedContainer: undefined | RenderResult;
+  act(() => {
+    if (container !== null) {
+      renderedContainer = renderTestComponent(container, {
+        initialReduxState: { networks: { networks: [tronChain] } },
+      });
+    }
+  });
 
   expect(renderedContainer).toBeTruthy();
   const ensEnabledElement = await screen.findByTestId("isEnsEnabled");
   expect(ensEnabledElement?.innerHTML).toBe("false");
+  expect(getNetwork).not.toHaveBeenCalled();
 });
 
 /**
@@ -186,8 +215,6 @@ test("resolving an address and lookups are cached", async () => {
       });
     }
   });
-
-  sendSafeInfo();
 
   expect(renderedContainer).toBeTruthy();
 
@@ -232,8 +259,6 @@ test("null lookups are cached/ resolved addresses are not cached", async () => {
       });
     }
   });
-
-  sendSafeInfo();
 
   expect(renderedContainer).toBeTruthy();
 

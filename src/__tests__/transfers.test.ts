@@ -223,6 +223,40 @@ describe("Build Transfers:", () => {
     });
   });
 
+  describe("Native decimals come from the transfer, not a hardcoded 18", () => {
+    const nativeTransfer = (amount: string, decimals: number, symbol: string): AssetTransfer => ({
+      token_type: "native",
+      receiver,
+      amount,
+      tokenAddress: null,
+      decimals,
+      symbol,
+      receiverEnsName: null,
+    });
+
+    it("encodes one whole unit of a 6 decimal native currency as 1000000", () => {
+      const [transfer] = buildAssetTransfers([nativeTransfer("1", 6, "TRX")]);
+      expect(transfer.value).toEqual("1000000");
+      expect(transfer.to).toEqual(receiver);
+      expect(transfer.data).toEqual("0x");
+    });
+
+    it("encodes the smallest representable 6 decimal amount as 1", () => {
+      const [transfer] = buildAssetTransfers([nativeTransfer("0.000001", 6, "TRX")]);
+      expect(transfer.value).toEqual("1");
+    });
+
+    it("truncates a 6 decimal native amount below the smallest unit to 0", () => {
+      const [transfer] = buildAssetTransfers([nativeTransfer("0.0000001", 6, "TRX")]);
+      expect(transfer.value).toEqual("0");
+    });
+
+    it("still encodes one whole unit of an 18 decimal native currency as 10^18", () => {
+      const [transfer] = buildAssetTransfers([nativeTransfer("1", 18, "ETH")]);
+      expect(transfer.value).toEqual("1000000000000000000");
+    });
+  });
+
   describe("Collectibles", () => {
     const transfers: CollectibleTransfer[] = [
       {

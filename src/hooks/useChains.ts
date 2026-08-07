@@ -6,22 +6,59 @@ import useSwr from "swr";
 
 const CONFIG_SERVICE_URL = process.env.REACT_APP_CONFIG_SERVICE_URL;
 
+export type ChainConfig = {
+  chainId: string;
+  chainName: string;
+  shortName: string;
+  nativeCurrency: {
+    name: string;
+    symbol: string;
+    decimals: number;
+    logoUri: string;
+  };
+  transactionService: string;
+  safeAppsRpcUri?: {
+    authentication: string;
+    value: string;
+  };
+};
+
 type ChainEndpointResponse = {
   next: string | null;
   previous: string | null;
   count: number;
-  results: {
-    chainId: string;
-    chainName: string;
-    shortName: string;
-    nativeCurrency: {
-      name: string;
-      symbol: string;
-      decimals: 18;
-      logoUri: string;
-    };
-    transactionService: string;
-  }[];
+  results: ChainConfig[];
+};
+
+/**
+ * Overlays the chains served by the config service onto the static network list.
+ *
+ * A gateway which only knows about a handful of chains must not erase the rest of
+ * the static list, so the static map is the base and served chains override it.
+ */
+export const mergeChainConfigs = (chainConfigs: ChainConfig[]): Map<number, NetworkInfo> => {
+  const mergedNetworks = new Map<number, NetworkInfo>(networkInfo);
+
+  chainConfigs.forEach((chainConfig) => {
+    const chainID = Number(chainConfig.chainId);
+    const staticEntry = mergedNetworks.get(chainID);
+    mergedNetworks.set(chainID, {
+      ...staticEntry,
+      chainID,
+      name: chainConfig.chainName,
+      shortName: chainConfig.shortName,
+      currencySymbol: chainConfig.nativeCurrency.symbol,
+      decimals: chainConfig.nativeCurrency.decimals,
+      rpcUri: chainConfig.safeAppsRpcUri?.value ?? staticEntry?.rpcUri,
+      baseAPI: chainConfig.transactionService,
+      // The served transaction service is authoritative for a served chain. Leaving an
+      // inherited staging host in place would shadow it: getBaseURL picks
+      // `stagingBaseAPI || baseAPI` whenever REACT_APP_IS_PRODUCTION is not "true".
+      stagingBaseAPI: undefined,
+    });
+  });
+
+  return mergedNetworks;
 };
 
 export const useLoadChains = () => {
@@ -37,11 +74,11 @@ export const useLoadChains = () => {
   }, [chains, dispatch]);
 };
 
-const useChains = () => {
+export const useChains = () => {
   const { data: chainConfigs, isLoading } = useSwr(
     CONFIG_SERVICE_URL ? "chains" : null,
-    async (): Promise<NetworkInfo[]> => {
-      const allChains: ChainEndpointResponse["results"] = [];
+    async (): Promise<ChainConfig[]> => {
+      const allChains: ChainConfig[] = [];
       let nextUrl: string | null = CONFIG_SERVICE_URL!;
 
       while (nextUrl) {
@@ -58,25 +95,14 @@ const useChains = () => {
         nextUrl = result.next;
       }
 
-      return allChains.map((chainConfig) => ({
-        chainID: Number(chainConfig.chainId),
-        name: chainConfig.chainName,
-        shortName: chainConfig.shortName,
-        currencySymbol: chainConfig.nativeCurrency.symbol,
-        baseAPI: chainConfig.transactionService,
-      }));
+      return allChains;
     },
   );
 
   return useMemo(() => {
     if (isLoading || chainConfigs === undefined) {
       return networkInfo;
-    } else {
-      const mappedNetworks = new Map<number, NetworkInfo>();
-      chainConfigs.forEach((chainConfig) => {
-        mappedNetworks.set(chainConfig.chainID, chainConfig);
-      });
-      return mappedNetworks;
     }
+    return mergeChainConfigs(chainConfigs);
   }, [chainConfigs, isLoading]);
 };

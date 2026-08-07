@@ -3,6 +3,8 @@ import { Box, CircularProgress, Popover, Typography } from "@mui/material";
 import { EthHashInfo } from "@safe-global/safe-react-components";
 import { BigNumber } from "bignumber.js";
 import { useEffect, useState } from "react";
+import { useCurrentChain } from "src/hooks/useCurrentChain";
+import { toDisplayAddress } from "src/utils/tronAddress";
 
 import { CollectibleTokenMetaInfo, useCollectibleTokenInfoProvider } from "../../hooks/collectibleTokenInfoProvider";
 
@@ -31,6 +33,8 @@ export const ERC721Token = (props: TokenProps) => {
   const [tokenMetaData, setTokenMetaData] = useState<CollectibleTokenMetaInfo | undefined>(undefined);
 
   const collectibleTokenInfoProvider = useCollectibleTokenInfoProvider();
+
+  const chainConfig = useCurrentChain();
 
   const { tokenAddress, id, token_type } = props;
 
@@ -102,7 +106,11 @@ export const ERC721Token = (props: TokenProps) => {
       {tokenMetaData?.name ? (
         <Typography noWrap>{tokenMetaData.name}</Typography>
       ) : tokenAddress ? (
-        <EthHashInfo address={tokenAddress} showAvatar={false} showCopyButton={false} />
+        <EthHashInfo
+          address={toDisplayAddress(tokenAddress, chainConfig?.shortName)}
+          showAvatar={false}
+          showCopyButton={false}
+        />
       ) : null}
     </Container>
   );

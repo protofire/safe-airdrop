@@ -4,6 +4,9 @@ import { ethers } from "ethers";
 import { useCallback, useMemo } from "react";
 import { selectAddressbook } from "src/stores/slices/addressbookSlice";
 import { useAppSelector } from "src/stores/store";
+import { isTronNetworkPrefix } from "src/utils/tronAddress";
+
+import { useCurrentChain } from "./useCurrentChain";
 
 export interface EnsResolver {
   /**
@@ -38,6 +41,9 @@ export const useEnsResolver: () => EnsResolver = () => {
   const lookupCache = useMemo(() => new Map<string, string | null>(), []);
 
   const addressbook = useAppSelector(selectAddressbook);
+
+  const chainConfig = useCurrentChain();
+  const isTronChain = isTronNetworkPrefix(chainConfig?.shortName);
 
   const lookupAddress = useCallback(
     async (address: string) => {
@@ -79,9 +85,13 @@ export const useEnsResolver: () => EnsResolver = () => {
   );
 
   const isEnsEnabled = useCallback(async () => {
+    // Tron has no ENS registry, so we never ask the provider for one.
+    if (isTronChain) {
+      return false;
+    }
     const network = await web3Provider.getNetwork();
     return typeof network.ensAddress !== "undefined" && network.ensAddress !== null;
-  }, [web3Provider]);
+  }, [isTronChain, web3Provider]);
 
   return useMemo(
     () => ({

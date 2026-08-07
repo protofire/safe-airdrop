@@ -1,7 +1,6 @@
-import { SafeAppProvider } from "@safe-global/safe-apps-provider";
 import { useSafeAppsSDK } from "@safe-global/safe-apps-react-sdk";
 import { SafeBalanceResponse } from "@safe-global/safe-gateway-typescript-sdk";
-import { ethers, utils } from "ethers";
+import { utils } from "ethers";
 import xdaiTokens from "honeyswap-default-token-list";
 import { useState, useEffect, useMemo } from "react";
 
@@ -10,6 +9,7 @@ import { erc20Instance } from "../transfers/erc20";
 import { TokenInfo } from "../utils";
 
 import { useCurrentChain } from "./useCurrentChain";
+import { useReadProvider } from "./useReadProvider";
 
 export type TokenMap = Map<string | null, MinimalTokenInfo>;
 
@@ -85,12 +85,13 @@ export type MinimalTokenInfo = {
 export interface TokenInfoProvider {
   getTokenInfo: (tokenAddress: string) => Promise<MinimalTokenInfo | undefined>;
   getNativeTokenSymbol: () => string;
+  getNativeTokenDecimals: () => number;
   getSelectedNetworkShortname: () => string | undefined;
 }
 
 export const useTokenInfoProvider: () => TokenInfoProvider = () => {
-  const { safe, sdk } = useSafeAppsSDK();
-  const web3Provider = useMemo(() => new ethers.providers.Web3Provider(new SafeAppProvider(safe, sdk)), [sdk, safe]);
+  const { sdk } = useSafeAppsSDK();
+  const readProvider = useReadProvider();
   const [balances, setBalances] = useState<SafeBalanceResponse>({
     fiatTotal: "0",
     items: [],
@@ -128,7 +129,7 @@ export const useTokenInfoProvider: () => TokenInfoProvider = () => {
           };
         }
 
-        const tokenContract = erc20Instance(tokenAddress, web3Provider);
+        const tokenContract = erc20Instance(tokenAddress, readProvider);
         const decimals = await tokenContract.decimals().catch((reason) => undefined);
         const symbol = await tokenContract.symbol().catch((reason) => undefined);
 
@@ -144,8 +145,9 @@ export const useTokenInfoProvider: () => TokenInfoProvider = () => {
         }
       },
       getNativeTokenSymbol: () => chainConfig?.currencySymbol ?? "ETH",
+      getNativeTokenDecimals: () => chainConfig?.decimals ?? 18,
       getSelectedNetworkShortname: () => chainConfig?.shortName,
     }),
-    [balances.items, tokenList, web3Provider, chainConfig],
+    [balances.items, tokenList, readProvider, chainConfig],
   );
 };

@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
 import { EthHashInfo } from "@safe-global/safe-react-components";
 import React from "react";
+import { useCurrentChain } from "src/hooks/useCurrentChain";
 import { DONATION_ADDRESS } from "src/utils";
+import { toDisplayAddress } from "src/utils/tronAddress";
 
 type ReceiverProps = {
   receiverEnsName: string | null;
@@ -21,11 +23,18 @@ const Container = styled.div`
 
 export const Receiver = (props: ReceiverProps) => {
   const { receiverEnsName, receiverAddress } = props;
+  const chainConfig = useCurrentChain();
+  // The address in state is always hex (par.4.1); base58 is only how it is shown.
   const isDonation = receiverAddress.toLowerCase() === DONATION_ADDRESS.toLowerCase();
   const displayName = isDonation ? "Donation Safe ❤️" : receiverEnsName;
   return (
     <Container>
-      <EthHashInfo address={receiverAddress} name={displayName} showAvatar={false} showCopyButton={false} />
+      <EthHashInfo
+        address={toDisplayAddress(receiverAddress, chainConfig?.shortName)}
+        name={displayName}
+        showAvatar={false}
+        showCopyButton={false}
+      />
     </Container>
   );
 };

@@ -447,6 +447,62 @@ describe("transferToSummary and check balances", () => {
     expect(lessNativeMoreErc20CheckResult[0].isDuplicate).toBeFalsy();
   });
 
+  it("checks a 6 decimal native currency against the raw balance", () => {
+    const nativeTransfer = (amount: string): AssetTransfer => ({
+      token_type: "native",
+      tokenAddress: null,
+      amount,
+      receiver: testData.addresses.receiver1,
+      decimals: 6,
+      symbol: "TRX",
+      receiverEnsName: null,
+    });
+
+    // 1 TRX held by the Safe, reported in SUN
+    const oneTrxBalance: AssetBalance = [
+      {
+        token: null,
+        tokenAddress: null,
+        balance: "1000000",
+        decimals: 6,
+      },
+    ];
+
+    expect(checkAllBalances(oneTrxBalance, undefined, [nativeTransfer("1")])).toHaveLength(0);
+
+    const insufficient = checkAllBalances(oneTrxBalance, undefined, [nativeTransfer("1.000001")]);
+    expect(insufficient).toHaveLength(1);
+    expect(insufficient[0].token_type).toEqual("native");
+    expect(insufficient[0].transferAmount).toEqual("1.000001");
+  });
+
+  it("reports the native symbol of the transfer when the balance entry carries no token", () => {
+    const transfers: AssetTransfer[] = [
+      {
+        token_type: "native",
+        tokenAddress: null,
+        amount: "1.000001",
+        receiver: testData.addresses.receiver1,
+        decimals: 6,
+        symbol: "TRX",
+        receiverEnsName: null,
+      },
+    ];
+
+    const oneTrxBalance: AssetBalance = [
+      {
+        token: null,
+        tokenAddress: null,
+        balance: "1000000",
+        decimals: 6,
+      },
+    ];
+
+    const insufficient = checkAllBalances(oneTrxBalance, undefined, transfers);
+    expect(insufficient).toHaveLength(1);
+    expect(insufficient[0].token).toEqual("TRX");
+  });
+
   it("balance check works for erc721 tokens", () => {
     const transfers: CollectibleTransfer[] = [
       {

@@ -22,9 +22,33 @@ import { AssetBalance } from "src/stores/slices/assetBalanceSlice";
 import { updateCsvContent } from "src/stores/slices/csvEditorSlice";
 import { useAppDispatch } from "src/stores/store";
 import { DONATION_ADDRESS } from "src/utils";
+import { toDisplayAddress } from "src/utils/tronAddress";
 
 import AssetIconDarkMode from "../static/assets-light.svg";
 import AssetIcon from "../static/assets.svg";
+
+/**
+ * The row appended to the editor buffer for a donation. On Tron the receiver is
+ * written in base58 and converted back by the parser (par.5.11).
+ */
+export const buildDonationCsvRow = ({
+  headerRow,
+  tokenAddress,
+  amount,
+  shortName,
+}: {
+  headerRow: string;
+  tokenAddress: string;
+  amount: string;
+  shortName?: string;
+}): string =>
+  headerRow
+    .replace("token_type", "erc20")
+    .replace("token_address", tokenAddress === "0x0" ? "" : tokenAddress)
+    .replace("receiver", toDisplayAddress(DONATION_ADDRESS, shortName))
+    .replace("amount", amount)
+    .replace("value", amount)
+    .replace("id", "");
 
 export const DonateDialog = ({
   isOpen,
@@ -85,13 +109,12 @@ export const DonateDialog = ({
   const handleSubmit = () => {
     if (selectedToken && selectedAmount) {
       const headerRow = csvContent.split(/\r\n|\r|\n/)[0];
-      const donationCSVRow = headerRow
-        .replace("token_type", "erc20")
-        .replace("token_address", selectedToken === "0x0" ? "" : selectedToken)
-        .replace("receiver", DONATION_ADDRESS)
-        .replace("amount", selectedAmount)
-        .replace("value", selectedAmount)
-        .replace("id", "");
+      const donationCSVRow = buildDonationCsvRow({
+        headerRow,
+        tokenAddress: selectedToken,
+        amount: selectedAmount,
+        shortName: chainConfig?.shortName,
+      });
 
       dispatch(
         updateCsvContent({

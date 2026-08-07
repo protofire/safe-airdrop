@@ -2,6 +2,7 @@ import { BigNumber } from "bignumber.js";
 import { utils } from "ethers";
 
 import { AssetTransfer, CollectibleTransfer, Transfer, UnknownTransfer } from "../hooks/useCsvParser";
+import { toWei } from "../utils";
 
 export const validateRow = (row: Transfer | UnknownTransfer): string[] => {
   switch (row.token_type) {
@@ -20,7 +21,12 @@ export const validateRow = (row: Transfer | UnknownTransfer): string[] => {
  * Validates, that addresses are valid, the amount is big enough and a decimal is given or can be found in token lists.
  */
 export const validateAssetRow = (row: AssetTransfer) => {
-  const warnings = [...areAddressesValid(row), ...isAmountPositive(row), ...isAssetTokenValid(row)];
+  const warnings = [
+    ...areAddressesValid(row),
+    ...isAmountPositive(row),
+    ...isAmountTransferable(row),
+    ...isAssetTokenValid(row),
+  ];
   return warnings;
 };
 
@@ -53,6 +59,15 @@ const areAddressesValid = (row: Transfer): string[] => {
 
 const isAmountPositive = (row: AssetTransfer): string[] =>
   new BigNumber(row.amount).isGreaterThan(0) ? [] : ["Only positive amounts/values possible: " + row.amount];
+
+/**
+ * A positive amount below the token's smallest unit truncates to zero when encoded (toWei rounds
+ * down), which would submit a transfer that moves nothing. Easily reachable on Tron's 6 decimals.
+ */
+const isAmountTransferable = (row: AssetTransfer): string[] =>
+  row.decimals >= 0 && new BigNumber(row.amount).isGreaterThan(0) && toWei(row.amount, row.decimals).isZero()
+    ? [`Amount is below the smallest unit of the token: ${row.amount}`]
+    : [];
 
 const isAssetTokenValid = (row: AssetTransfer): string[] =>
   row.decimals === -1 && row.symbol === "TOKEN_NOT_FOUND" ? [`No token contract was found at ${row.tokenAddress}`] : [];

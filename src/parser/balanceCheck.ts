@@ -89,10 +89,10 @@ export const checkAllBalances = (
 
       if (
         typeof tokenBalance === "undefined" ||
-        !isSufficientBalance(new BigNumber(tokenBalance.balance), amount, 18)
+        !isSufficientBalance(new BigNumber(tokenBalance.balance), amount, decimals)
       ) {
         insufficientTokens.push({
-          token: tokenBalance?.token?.symbol || "ETH",
+          token: tokenBalance?.token?.symbol || symbol || "ETH",
           token_type: "native",
           transferAmount: amount.toFixed(),
           isDuplicate: false, // For Erc20 / Coin Transfers duplicates are never an issue

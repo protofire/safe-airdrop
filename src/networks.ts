@@ -3,6 +3,9 @@ export type NetworkInfo = {
   chainID: number;
   name: string;
   currencySymbol: string;
+  decimals?: number; // native currency decimals; defaults to 18
+  rpcUri?: string; // read-only JSON-RPC endpoint (Tron: contract reads)
+  maxTransfers?: number; // row cap; defaults to 500
   baseAPI?: string;
   stagingBaseAPI?: string;
 };
@@ -827,6 +830,38 @@ export const _networkInfo: Array<NetworkInfo> = [
     currencySymbol: "tFIL",
     baseAPI: "https://transaction-testnet.safe.filecoin.io",
     stagingBaseAPI: "https://transaction-testnet.staging.safe.filecoin.io",
+  },
+  {
+    chainID: 2494104990,
+    name: "Tron Shasta Testnet",
+    shortName: "trx-shasta",
+    currencySymbol: "TRX",
+    decimals: 6,
+    rpcUri: "https://api.shasta.trongrid.io/jsonrpc",
+    // Measured 2026-08-07 against Shasta: amount-0 TRC-20 batches pass simulation
+    // through 325 rows and hit the TVM per-transaction CPU ceiling at 350. Real
+    // airdrop legs do more work per row, so 200 leaves margin (~600 TRX in fees).
+    maxTransfers: 200,
+    baseAPI: "https://transaction-tron-testnet.stage.safe.protofire.io",
+    stagingBaseAPI: "https://transaction-tron-testnet.stage.safe.protofire.io",
+  },
+  {
+    // PROVISIONAL: this is the only live Tron mainnet transaction service as of
+    // 2026-08-07 and it is stage-hosted. Replace when ops names a production host.
+    // No gateway or Safe UI serves chain 728126428 yet, so this entry is
+    // configuration-ahead-of-infrastructure by design: when the UI appears, no
+    // code change is needed.
+    chainID: 728126428,
+    name: "Tron Mainnet",
+    shortName: "trx",
+    currencySymbol: "TRX",
+    decimals: 6,
+    rpcUri: "https://api.trongrid.io/jsonrpc",
+    // Inherits Shasta's measured cap as a conservative floor; mainnet energy
+    // pricing differs and should be re-measured once a mainnet UI exists.
+    maxTransfers: 200,
+    baseAPI: "https://transaction-tron.stage.safe.protofire.io",
+    stagingBaseAPI: "https://transaction-tron.stage.safe.protofire.io",
   },
 ];
 

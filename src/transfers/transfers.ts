@@ -14,7 +14,7 @@ export function buildAssetTransfers(transferData: AssetTransfer[]): BaseTransact
       // Native asset transfer
       return {
         to: transfer.receiver,
-        value: toWei(transfer.amount, 18).toFixed(),
+        value: toWei(transfer.amount, transfer.decimals).toFixed(),
         data: "0x",
       };
     } else {

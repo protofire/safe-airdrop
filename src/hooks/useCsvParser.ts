@@ -3,9 +3,11 @@ import { usePapaParse } from "react-papaparse";
 import { transform } from "src/parser/transformation";
 import { validateRow } from "src/parser/validation";
 import { CodeWarning } from "src/stores/slices/messageSlice";
+import { isTronNetworkPrefix } from "src/utils/tronAddress";
 
 import { useCollectibleTokenInfoProvider } from "./collectibleTokenInfoProvider";
 import { useTokenInfoProvider } from "./token";
+import { useCurrentChain } from "./useCurrentChain";
 import { useEnsResolver } from "./useEnsResolver";
 
 export type Transfer = AssetTransfer | CollectibleTransfer;
@@ -73,23 +75,47 @@ const generateWarnings = (
 
 const countLines = (text: string) => text.split(/\r\n|\r|\n/).length;
 
+// A trailing newline is not a transfer row: it must neither count against the row cap nor reach
+// the CSV parser, which reports an empty last line as a syntax error.
+const stripTrailingNewlines = (text: string) => text.replace(/(\r\n|\r|\n)+$/, "");
+
+const DEFAULT_MAX_TRANSFERS = 500;
+// A Tron chain with no configured cap (e.g. served only by a gateway) still gets the measured
+// Tron value rather than the EVM default: the TVM per-transaction CPU ceiling applies to every
+// Tron network (see tron/PRD_CSV_AIRDROP_TRON.md §7).
+const TRON_DEFAULT_MAX_TRANSFERS = 200;
+
+/**
+ * The row cap is a property of the chain, not of this app: on Tron a batch runs into the TVM's
+ * per-transaction energy/CPU ceiling long before it would hit any gas limit. The parser warns and
+ * blocks -- it never silently truncates a transfer list.
+ */
+const rowCapMessage = (maxTransfers: number, isTron: boolean) => {
+  const reason = isTron ? "Tron's per-transaction energy and CPU limit" : "the block gas limit";
+  return `Max number of lines exceeded. Due to ${reason}, transactions are limited to ${maxTransfers} lines.`;
+};
+
 export const useCsvParser = (): { parseCsv: (csvText: string) => Promise<[Transfer[], CodeWarning[]]> } => {
   const collectibleTokenInfoProvider = useCollectibleTokenInfoProvider();
   const tokenInfoProvider = useTokenInfoProvider();
   const ensResolver = useEnsResolver();
+  const chainConfig = useCurrentChain();
   const { readString } = usePapaParse();
 
   const parseCsv = useCallback(
     async (csvText: string): Promise<[Transfer[], CodeWarning[]]> => {
       return new Promise<[Transfer[], CodeWarning[]]>((resolve, reject) => {
-        const numLines = countLines(csvText);
-        // Hard limit at 500 lines of txs
-        if (numLines > 501) {
-          reject("Max number of lines exceeded. Due to the block gas limit transactions are limited to 500 lines.");
+        const isTron = isTronNetworkPrefix(chainConfig?.shortName);
+        const maxTransfers = chainConfig?.maxTransfers ?? (isTron ? TRON_DEFAULT_MAX_TRANSFERS : DEFAULT_MAX_TRANSFERS);
+        const csv = stripTrailingNewlines(csvText);
+        const numLines = countLines(csv);
+        // Hard limit at maxTransfers rows of txs, plus the header row.
+        if (numLines > maxTransfers + 1) {
+          reject(rowCapMessage(maxTransfers, isTron));
           return;
         }
 
-        readString(csvText, {
+        readString(csv, {
           header: true,
           worker: true,
           complete: async (results) => {
@@ -148,7 +174,7 @@ export const useCsvParser = (): { parseCsv: (csvText: string) => Promise<[Transf
         });
       });
     },
-    [collectibleTokenInfoProvider, ensResolver, readString, tokenInfoProvider],
+    [chainConfig, collectibleTokenInfoProvider, ensResolver, readString, tokenInfoProvider],
   );
 
   return {
