@@ -622,11 +622,11 @@ export const _networkInfo: Array<NetworkInfo> = [
   },
   {
     chainID: 1625,
-    name: "Gravity Alpha Mainnet",
+    name: "Gravity Alpha Mainnet (L2)",
     shortName: "gravity",
     currencySymbol: "G",
-    baseAPI: "https://transaction.safe.gravity.xyz",
-    stagingBaseAPI: "https://transaction.staging.safe.gravity.xyz",
+    baseAPI: "https://transaction-alpha-l2.safe.gravity.xyz",
+    stagingBaseAPI: "https://transaction-alpha-l2.staging.safe.gravity.xyz",
   },
   {
     chainID: 13746,
@@ -638,11 +638,11 @@ export const _networkInfo: Array<NetworkInfo> = [
   },
   {
     chainID: 13505,
-    name: "Gravity Alpha Testnet Sepolia",
+    name: "Gravity Alpha Sepolia Testnet (L2)",
     shortName: "gravitysep",
     currencySymbol: "G",
-    baseAPI: "https://transaction-testnet.safe.gravity.xyz",
-    stagingBaseAPI: "https://transaction-testnet.staging.safe.gravity.xyz",
+    baseAPI: "https://transaction-alpha-sepolia-l2.safe.gravity.xyz",
+    stagingBaseAPI: "https://transaction-alpha-sepolia-l2.staging.safe.gravity.xyz",
   },
   {
     chainID: 360,
