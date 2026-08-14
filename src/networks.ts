@@ -813,6 +813,22 @@ export const _networkInfo: Array<NetworkInfo> = [
     stagingBaseAPI: "https://transaction-testnet.staging.safe.taiko.xyz",
   },
   {
+    chainID: 88888,
+    name: "Chiliz",
+    shortName: "chzmainnet",
+    currencySymbol: "CHZ",
+    baseAPI: "https://transaction.safe.chiliz.com/api/v1",
+    stagingBaseAPI: "https://transaction.staging.safe.chiliz.com/api/v1",
+  },
+  {
+    chainID: 88882,
+    name: "Chiliz Spicy",
+    shortName: "chzspicy",
+    currencySymbol: "CHZ",
+    baseAPI: "https://transaction-testnet.safe.chiliz.com/api/v1",
+    stagingBaseAPI: "https://transaction-testnet.staging.safe.chiliz.com/api/v1",
+  },
+  {
     chainID: 314,
     name: "Filecoin",
     shortName: "filecoin",
