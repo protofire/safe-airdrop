@@ -844,6 +844,22 @@ export const _networkInfo: Array<NetworkInfo> = [
     baseAPI: "https://transaction-testnet.safe.filecoin.io",
     stagingBaseAPI: "https://transaction-testnet.staging.safe.filecoin.io",
   },
+  {
+    chainID: 99999,
+    name: "ADI Network AB Testnet",
+    shortName: "adi-testnet",
+    currencySymbol: "tFIL",
+    baseAPI: "https://transaction-testnet.safe.adifoundation.ai",
+    stagingBaseAPI: "https://transaction-testnet.staging.safe.adifoundation.ai",
+  },
+  {
+    chainID: 36900,
+    name: "ADI Network",
+    shortName: "adi",
+    currencySymbol: "ADI",
+    baseAPI: "https://transaction.safe.adifoundation.ai",
+    stagingBaseAPI: "https://transaction.staging.safe.adifoundation.ai",
+  },
 ];
 
 export const networkInfo = new Map<number, NetworkInfo>(_networkInfo.map((info) => [info.chainID, info]));
